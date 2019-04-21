@@ -19,7 +19,12 @@ Reference [MicroBlog](https://blog.miguelgrinberg.com/post/the-flask-mega-tutori
 
 ### Deployment
 * Setup venv
+```
+$ python3 -m venv venv
+$ virtualenv venv
+$ . venv/bin/activate
 
+```
 
 * run flask process in venv
 
