@@ -7,9 +7,14 @@ Team Members:
 * Senthil
 * Yuva
 
-## LearnFlask 
+## WebServer
 ### Purpose 
-Learning to build and deploy Flask based webserver using web example
+WebServer of Books Store
+
+## Database
+### Purpose
+Python scripts to create collections in MongoDB
+
 
 ### Reference
 Reference [MicroBlog](https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world) - Building a Simple Web Server using Flask
@@ -21,9 +26,7 @@ Reference [MicroBlog](https://blog.miguelgrinberg.com/post/the-flask-mega-tutori
 * Setup venv
 ```
 $ python3 -m venv venv
-$ virtualenv venv
 $ . venv/bin/activate
-
 ```
 
 * run flask process in venv
