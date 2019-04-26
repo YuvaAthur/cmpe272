@@ -13,10 +13,8 @@ Scripts to create consistent collections in MongoDB
 
 
 ### Reference
-Reference [MicroBlog](https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world) - Building a Simple Web Server using Flask
 
-### Built With
-* [Flask](https://www.palletsprojects.com/) - The web framework used
+
 
 ### Deployment
 * Install pre-requisites
