@@ -1,0 +1,21 @@
+language: python
+python:
+  - "3.4"
+install:
+    - "pip install mongomock"
+    - "pip install pprint"
+    - "pip install bson"    
+    - "pip install pymongo"  
+    - "pip install dnspython"
+script:
+  - "python pop-sample-unittest.py"
+  - "python test_list_books.py"
+  - "python add-customer-unittest.py"
+  - "python order-unittest.py"
+
+notifications:
+  email:
+    recipients:
+       - senthilanand.govindarajan@sjsu.edu
+       - pradeep.yadlapalli@sjsu.edu
+       - yuva.athur@sjsu.edu
