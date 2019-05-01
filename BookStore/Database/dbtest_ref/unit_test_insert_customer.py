@@ -13,7 +13,7 @@ class DBTests(unittest.TestCase):
         self.cust_rect0={"_id" : 1, "FirstName" : "Apple", "LastName" : "Seed"}
         ret = self.db.customer.insert_one(self.cust_rec0).inserted_id
         print("Added Record",ret.in
-        #self.cust_rec1={ "_id" : 5, "FirstName" : "Melon", "LastName" : "Seed"}
+        self.cust_rec1={ "_id" : 5, "FirstName" : "Melon", "LastName" : "Seed"}
         # #print(self.db.list_collection_names)
         # self.assertEqual(len(customer), 1) 
                 

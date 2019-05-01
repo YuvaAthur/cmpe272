@@ -15,6 +15,9 @@ WebServer of Books Store
 ### Purpose
 Python scripts to create collections in MongoDB
 
+## Image
+### Purpose
+Docker image for AWS deployment
 
 ### Reference
 Reference [MicroBlog](https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world) - Building a Simple Web Server using Flask
@@ -22,25 +25,16 @@ Reference [MicroBlog](https://blog.miguelgrinberg.com/post/the-flask-mega-tutori
 ### Built With
 * [Flask](https://www.palletsprojects.com/) - The web framework used
 
-### Local Deployment
-
-* Setup venv : good for local multi-library version development/testing 
+### Deployment
+* Setup venv
 ```
 $ python3 -m venv venv
 $ . venv/bin/activate
 ```
 
-* Install pre-requisites
-```
-(venv) $ pip3 install flask
-(venv) $ pip3 install pprint"
-(venv) $ pip3 install bson"    
-(venv) $ pip3 install mongomock"
-(venv) $ pip3 install pymongo"  
-(venv) $ pip3 install dnspython"
-```
+* run flask process in venv
 
-* run flask process in venv on port 80
+
 ```
 (venv) $ export FLASK_APP=WebServer.py
 (venv) $ sudo bash

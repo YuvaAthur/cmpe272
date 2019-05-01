@@ -1,0 +1,22 @@
+Ref: https://unix.stackexchange.com/questions/115838/what-is-the-right-file-permission-for-a-pem-file-to-ssh-and-scp 
+
+1) Download the .pem file.
+2) In Amazon Dashboard choose "Instances" from the left side bar, and then select the instance you would like to connect to.
+3) Click on "Actions", then select "Connect"
+4) Click on "Connect with a Standalone SSH Client"
+5) Open up a Terminal window
+# mkdir -p ~/.ssh
+# mv ~/Downloads/ec2private.pem ~/.ssh
+# chmod 400 ~/.ssh/ec2private.pem
+# vim ~/.ssh/config
+Enter the following text into that config file:
+
+    Host *amazonaws.com
+    IdentityFile ~/.ssh/ec2private.pem
+    User ec2-user
+    
+Save that file.
+
+6) Use the ssh command with your public DNS hostname to connect to your instance.
+e.g.:
+# ssh ec2-54-23-23-23-34.example.amazonaws.com
