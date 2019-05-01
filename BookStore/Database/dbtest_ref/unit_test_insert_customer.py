@@ -11,7 +11,8 @@ class DBTests(unittest.TestCase):
         #self.col = pymongo.collection.Collection(self.db,"Customer")
         #print(len(self.col.count()))
         self.cust_rect0={"_id" : 1, "FirstName" : "Apple", "LastName" : "Seed"}
-        print("Added Record", self.db.customer.insert_one(self.cust_rec0).inserted_id)
+        ret = self.db.customer.insert_one(self.cust_rec0).inserted_id
+        print("Added Record",ret.in
         #self.cust_rec1={ "_id" : 5, "FirstName" : "Melon", "LastName" : "Seed"}
         # #print(self.db.list_collection_names)
         # self.assertEqual(len(customer), 1) 

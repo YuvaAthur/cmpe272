@@ -21,5 +21,7 @@ TravisCI linked to GitHub: https://travis-ci.org/YuvaAthur/cmpe272
 * Activate CMPE272 Repository in TravisCI
 * Follow instructions on https://docs.travis-ci.com/user/tutorial/ 
 
+### Testing
+* Update travis.yml with necessary steps to test code
 
 
