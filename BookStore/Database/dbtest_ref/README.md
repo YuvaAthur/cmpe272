@@ -27,15 +27,14 @@ $ pip3 install mongomock
 $ pip3 install json
 
 ```
-
-* Test Scripts 
-
-* * list_books.py : 
-* * * using Inventory Collection, aggregate available books into Books.Qty
-* * books-code.py: 
-* * * uses mongomock to simulate mongo db
-* * * adds documents into books and inventory collection
-* * * tests available book count from list_books
-
+### Test Scripts 
+1. list_books.py : Code to be tested
+    * using Inventory Collection, aggregate available books into Books.Qty
+    * Function: `get_available_books`
+2. books-code.py: Test Script
+    * uses mongomock to simulate mongo db
+    * SetUp: adds documents into books and inventory collection
+    * test_ : calls `get_available_books`
+    
 
 
