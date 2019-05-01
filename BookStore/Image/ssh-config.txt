@@ -10,11 +10,11 @@ Ref: https://unix.stackexchange.com/questions/115838/what-is-the-right-file-perm
 # chmod 400 ~/.ssh/ec2private.pem
 # vim ~/.ssh/config
 Enter the following text into that config file:
-
-    Host *amazonaws.com
-    IdentityFile ~/.ssh/ec2private.pem
-    User ec2-user
-    
+```
+Host *amazonaws.com
+IdentityFile ~/.ssh/<ec2private>.pem
+User ec2-user
+```
 Save that file.
 
 6) Use the ssh command with your public DNS hostname to connect to your instance.
