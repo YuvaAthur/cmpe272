@@ -13,7 +13,7 @@ Enter the following text into that config file:
 ```
 Host *amazonaws.com
 IdentityFile ~/.ssh/<ec2private>.pem
-User ec2-user
+User ubuntu
 ```
 Save that file.
 

@@ -9,9 +9,59 @@ Team Members:
 
 ## Image
 ### Purpose
-Docker image for AWS deployment
+Manage Cloud Instance Environment
 
-### Creating AWS Instance
+### Creating AWS Ubuntu Instance
+* Maximize on Free-eligible tier
+* Image name: Ubuntu Server 18.04 LTS (HVM), SSD Volume Type 
+* Size: t2.micro 1vCPU ; 1GB memory
+* Storage : 30 GB 
+* Connecting to Image
+    * Ref: https://unix.stackexchange.com/questions/115838/what-is-the-right-file-permission-for-a-pem-file-to-ssh-and-scp 
+        * See ssh-config.txt for more details
+    * Ubuntu user is `ubuntu` : _don't replace with AWS user name_
+    * `sudo apt-get update`
+    * Ensure right security group that allows ssh access 
+        * In case security group is right and port 22 error occurs, wait or reboot instance
+* Set up environment for python3 / virtual env / Flask
+    * Ref: https://vishnut.me/blog/ec2-flask-apache-setup.html 
+    * `pip3 install virtualenv`
+    * `mkdir flaskproject`
+    * `cd flaskproject/`
+    * `sudo apt install virtualenv`
+    * `virtualenv venv`
+        * `virtualenv --python=python3 venv` incase there is python conflict
+    * `. venv/bin/activate`
+* Test Flask
+    * `vi app.py`
+        * ```
+        from flask import Flask
+        app = Flask(__name__)
+
+        @app.route('/')
+        def hello_world():
+            return 'Hello, World!'
+
+        if __name__ == "__main__":
+            app.run()
+        ```
+    * `export FLASK_APP=app.py`
+    * `flask run --host=0.0.0.0 --port=80`
+        * Ensure that port 80 connections are open on AWS side
+        * port 80 is special - requires 2 additional steps
+            * `sudo bash`
+            * `. venv/bin/activate`
+* Connect to <instance-public-ip>:80 for 'Hello World'
+    * E.g. http://54.221.13.133:80 
+
+
+
+=================================================================================
+
+
+# Yuva's journey! : Useful information for others to explore 
+
+### Creating AWS AMI Instance
 * Image Name: Amazon Linux AMI 2018.03.0 (HVM), SSD Volume Type - ami-0080e4c5bc078760e
     * Free-eligible
 * Details: The Amazon Linux AMI is an EBS-backed, AWS-supported image. The default image includes AWS command line tools, Python, Ruby, Perl, and Java. The repositories include Docker, PHP, MySQL, PostgreSQL, and other packages.
@@ -29,7 +79,7 @@ Docker image for AWS deployment
 ### Set up docker container with pre-requisites 
 * Working with Docker
     * Probably **not** required. Seems too round about!
-~* AWS Launch Templates are for implementing best practices
+* AWS Launch Templates are for implementing best practices
 * AWS Batch is used for setting up compute environments for batch jobs - upto ECS Instance creation.
 * Need to use Docker images to set up right environment
 * Set up docker service in EC2 Instance SSH Terminal:
@@ -39,14 +89,13 @@ Docker image for AWS deployment
     sudo service docker start
     ```
 * Pull relevant image from DockerHub
-    * docker pull saptarshikar/pymongo~
+    * docker pull saptarshikar/pymongo
 
 ### Setup Python environment
 * This can  become start-up script later.
     * For AWS put it into User Data of Instance
+        * Ref: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/user-data.html
     * In GCP add it as Startup Script
-
-
 * Setup python :
 ```
 $ sudo pip install --upgrade pip
@@ -87,17 +136,15 @@ app = Flask(__name__)
 def hello_world():
     return 'Hello, World!'
 
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=80)
-
 ^c (to exit)
 $ cat app.py
 $ export FLASK_APP=app.py
-$ flask run --host=0.0.0.0
+$ flask run --host=0.0.0.0 --port=80
 ```
 Note: Flask defaults to 5000 which is typically blocked by EC2
     Option 1: Add incoming rule for port 5000
-    OPtion 2: Launch obn a different port
+    Option 2: Launch on a different port
+* app.run(debug=True, port=3000)
 
 * Connect from remote place
 

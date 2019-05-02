@@ -17,7 +17,7 @@ Python scripts to create collections in MongoDB
 
 ## Image
 ### Purpose
-Docker image for AWS deployment
+Cloud Instance Environment Management
 
 ### Reference
 Reference [MicroBlog](https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world) - Building a Simple Web Server using Flask
@@ -25,19 +25,25 @@ Reference [MicroBlog](https://blog.miguelgrinberg.com/post/the-flask-mega-tutori
 ### Built With
 * [Flask](https://www.palletsprojects.com/) - The web framework used
 
-### Deployment
-* Setup venv
-```
-$ python3 -m venv venv
-$ . venv/bin/activate
-```
+### CI/CD with Travis CI
+* Ref: https://stackify.com/top-continuous-integration-tools/ 
+* Connect to Travi CI 
+* Link to GitHub
+* Connect to Git repository from Travis CI
+    * E.g. https://travis-ci.org/YuvaAthur/cmpe272
+* Activation: Checkin .travis.yml file into Git repository
+* Constructs in .travis.yml
+    * Structure Ref: https://github.com/discogs/pymongo-job-queue/blob/master/.travis.yml
+    * Requirements.txt Ref: https://github.com/sjsu-cmpe-272-spring-2019/mongodb_utils 
+        * use `pip list` to get the versions of libraries and use them
+    * Script pytest Ref: https://github.com/kevchn/travis-ci-pytest 
+        * Directory structure is important for pytest
 
-* run flask process in venv
+### Project structure 
+* Ref: https://www.learnpython.org/en/Modules_and_Packages 
+    * Ref: best practice structure for .travis.yml
+        * https://blog.ionelmc.ro/2014/05/25/python-packaging/#ci-templates-travis-yml
+        * https://docs.python-guide.org/writing/structure/
+ 
+* bookstore : package
 
-
-```
-(venv) $ export FLASK_APP=WebServer.py
-(venv) $ sudo bash
-(venv) root $ . venv/bin/activate
-(venv) root $ flask run --host=0.0.0.0 --port=80
-```

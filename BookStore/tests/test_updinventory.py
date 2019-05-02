@@ -1,7 +1,17 @@
 import unittest
 import mongomock
 import json
-import updinventory 
+
+
+# path resolution for sibling directories test and bookstore
+# https://stackoverflow.com/questions/39134718/how-to-add-a-package-to-sys-path-for-testing
+# `tests` directory has to be declared a module/package
+#	# so add __init__.py to that folder
+#	#  .context is for relative import --> did not work
+#	# https://stackoverflow.com/questions/45446418/modulenotfounderror-no-module-named-main-xxxx-main-is-not-a-packag
+#from context import bookstore # this works from command line
+from .context import bookstore # needed by pytest & therefore travis
+from bookstore.db.dbops.updinventory import fulfill_order
 
 class DBTests(unittest.TestCase):
 	def setUp(self):
@@ -21,7 +31,7 @@ class DBTests(unittest.TestCase):
         	pass
 
 	def test_fulfill_order(self):
-		ret=updinventory.fulfill_order(self.db,5)
+		ret=fulfill_order(self.db,5)
 		print("Created Order with ID --",ret)
 		#self.assertEqual(ret['NumItems'],2)
 		

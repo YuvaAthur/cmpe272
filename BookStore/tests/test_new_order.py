@@ -1,7 +1,17 @@
 import unittest
 import mongomock
 import json
-import new_order
+
+
+# path resolution for sibling directories test and bookstore
+# https://stackoverflow.com/questions/39134718/how-to-add-a-package-to-sys-path-for-testing
+# `tests` directory has to be declared a module/package
+#	# so add __init__.py to that folder
+#	#  .context is for relative import --> did not work
+#	# https://stackoverflow.com/questions/45446418/modulenotfounderror-no-module-named-main-xxxx-main-is-not-a-packag
+#from context import bookstore # this works from command line
+from .context import bookstore # needed by pytest & therefore travis
+from bookstore.db.dbops.new_order import create_order
 
 class DBTests(unittest.TestCase):
 	def setUp(self):
@@ -20,7 +30,7 @@ class DBTests(unittest.TestCase):
 	def test_create_order(self):
 		customer_id=5
 		book_list={'id':1,'qty':2},{'id':2,'qty':3}
-		ret=new_order.create_order(self.db,customer_id,book_list)
+		ret=create_order(self.db,customer_id,book_list)
 		print("Created Order with ID --",ret)
 		self.assertEqual(ret['NumItems'],2)
 		

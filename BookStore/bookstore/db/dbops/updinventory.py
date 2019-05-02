@@ -1,14 +1,14 @@
 import sys
 import pymongo
-import pprint
+from pprint import pprint
 
 def fulfill_order(db,order_id):
 	collection=db["inventory"]
 	collection2=db["orders"]
 	collection3=db["order_lines"]	
-	for item in (collection3.find({"OrderID" : "5"})):
-		for avail in (collection.find_one({"id" : item.BookId})
-			pprint.pprint(avail.qty)
+	for item in (collection3.find({"OrderID" : order_id})):
+		for avail in (collection.find_one({"id" : item.BookID})):
+			pprint(avail.qty)
 
 	#ret=collection.insert_one({"CustomerID" : customer_id})
 	#order_id=(ret.inserted_id)

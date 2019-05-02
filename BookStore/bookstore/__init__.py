@@ -1,0 +1,1 @@
+# To declare bookstore package / module

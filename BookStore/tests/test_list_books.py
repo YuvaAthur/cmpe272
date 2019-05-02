@@ -1,7 +1,18 @@
 import unittest
 import mongomock
 import json
-import list_books
+
+
+# path resolution for sibling directories test and bookstore
+# https://stackoverflow.com/questions/39134718/how-to-add-a-package-to-sys-path-for-testing
+# `tests` directory has to be declared a module/package
+#	# so add __init__.py to that folder
+#	#  .context is for relative import --> did not work
+#	# https://stackoverflow.com/questions/45446418/modulenotfounderror-no-module-named-main-xxxx-main-is-not-a-packag
+#from context import bookstore # this works from command line
+from .context import bookstore # needed by pytest & therefore travis
+from bookstore.db.dbops.list_books import get_available_books
+
 
 class DBTests(unittest.TestCase):
     def setUp(self):
@@ -16,7 +27,7 @@ class DBTests(unittest.TestCase):
         pass
 
     def test_get_available_books(self):
-        books = list_books.get_available_books(self.db)
+        books = get_available_books(self.db)
         self.assertEqual(len(books), 1)
         print(books)
         
