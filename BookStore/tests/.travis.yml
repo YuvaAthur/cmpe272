@@ -1,0 +1,34 @@
+
+# best practice structure for .travis.yml
+# ref: https://blog.ionelmc.ro/2014/05/25/python-packaging/#ci-templates-travis-yml
+# ref: https://docs.python-guide.org/writing/structure/
+
+language: python
+sudo: false
+cache: pip
+python:
+  - "3.7"
+
+# command to install dependencies
+install: "pip install -r requirements.txt"
+
+# test scripts
+# pytest leverages dir structure + test prefix
+script: pytest
+# script:
+#   - "python test_popsample.py"
+#   - "python test_list_books.py"
+#   - "python test_add_customer.py"
+#   - "python test_new_order.py"
+#   - "python test_updinventory.py"
+#   - "python test_atlas_conn.py"
+
+notifications:
+  email:
+#    on_success: never
+#    on_failure: always
+    recipients:
+#       - senthilanand.govindarajan@sjsu.edu
+#       - pradeep.yadlapalli@sjsu.edu
+       - yuva.athur@sjsu.edu
+#       - sanjeevi.vijayakumar@sjsu.edu 
