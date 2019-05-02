@@ -9,7 +9,7 @@ def add_cust(db,cust_rec1):
 if __name__ == "__main__":
 	argv = sys.argv
 	if len(argv) < 2:
-		print("Usage: python add_customer.py mongodb_uri")
+		print("Usage: python add_customer.py db record")
 		exit(-1)
 
 	mongodb_uri = argv[1]
