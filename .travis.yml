@@ -15,8 +15,14 @@
 # git init
 # git remote add origin https://github.com/YuvaAthur/cmpe272.git
 # git pull origin master
-# 
-
+# sudo pip install -r requirements.txt
+# pytest
+# Result: 
+#   ALWAYS Travis yaml in the root
+#   pytest discovers test cases in the directory structure
+#   so if pytest runs from repository root, Travis should work right!
+#   Correct version numbers in requirements.txt since pip install fails otherwise
+# Central Travis CI build + test now works!! Yay!!
 
 
 language: python

@@ -11,7 +11,7 @@ import json
 #	# https://stackoverflow.com/questions/45446418/modulenotfounderror-no-module-named-main-xxxx-main-is-not-a-packag
 #from context import bookstore # this works from command line
 from .context import bookstore # needed by pytest & therefore travis
-from bookstore.db.dbops.popsample import add_cust
+from bookstore.db.dbops.popsample import pop_sample
 
 class DBTests(unittest.TestCase):
 	def setUp(self):
@@ -26,11 +26,11 @@ class DBTests(unittest.TestCase):
         	pass
 
 	def test_cust_add(self):
-		ret=add_cust(self.db,self.cust_rec1)
+		ret=pop_sample(self.db,self.cust_rec1)
 		print("Populated Customers data with IDs --",ret.inserted_ids)
 		self.assertEqual(len(ret.inserted_ids), 5)
 		
-
-if __name__ == '__main__':
-    unittest.main()
+# not required if running from pytest		
+# if __name__ == "__main__":
+# 	unittest.main()
 

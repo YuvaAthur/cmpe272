@@ -48,6 +48,5 @@ $ . venv/bin/activate
 (venv) root $ flask run --host=0.0.0.0 --port=80
 ```
 
-* Set up REST API Server in Flask
-
+### Set up REST API Server in Flask
 Ref: https://blog.miguelgrinberg.com/post/designing-a-restful-api-with-python-and-flask 

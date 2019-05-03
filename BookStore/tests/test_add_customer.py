@@ -29,8 +29,8 @@ class DBTests(unittest.TestCase):
 		print("Added Customer with ID --",ret.inserted_id)
 		self.assertEqual(ret.inserted_id, 5)
 		
-if __name__ == "__main__":
-	unittest.main()
+# if __name__ == "__main__":
+# 	unittest.main()
 
 
 

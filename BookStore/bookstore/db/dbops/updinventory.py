@@ -2,19 +2,15 @@ import sys
 import pymongo
 from pprint import pprint
 
+# TODO: This function needs to be checked
 def fulfill_order(db,order_id):
 	collection=db["inventory"]
 	collection2=db["orders"]
 	collection3=db["order_lines"]	
-	for item in (collection3.find({"OrderID" : order_id})):
-		for avail in (collection.find_one({"id" : item.BookID})):
-			pprint(avail.qty)
-
-	#ret=collection.insert_one({"CustomerID" : customer_id})
-	#order_id=(ret.inserted_id)
-	#for b in book_list:
-	#	collection2.insert_one({"OrderID" : order_id, "BookID" : b["id"], "Quantity" : b["qty"]})
-	#return({"OrderID": order_id, "NumItems" : len(book_list)})	
+	for item in (collection3.find({"OrderID" : order_id})):  # find line items with order ID
+		for avail in (collection.find_one({"id" : item.BookID})): # find inventory value for one book
+			#pprint(avail.qty)
+			return avail.Qty								# have to create an aggregated JSON for each book
 
 
 

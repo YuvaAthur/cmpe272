@@ -1,7 +1,7 @@
 import sys
 import pymongo
 
-def add_cust(db,cust_rec1):
+def pop_sample(db,cust_rec1):
 	collection=db["customer"]
 	insert_cust=collection.insert_many(cust_rec1)
 	return(insert_cust)
