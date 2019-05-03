@@ -9,6 +9,12 @@
 # `sudo docker pull travisci/ci-ruby:packer-1494868441`
 # `docker run -it travisci/ci-ruby:packer-1494868441 /bin/bash'
 # `su - travis`
+# Clone git repository to root
+# Ref: https://stackoverflow.com/questions/9443927/git-clone-into-home-directory/9444352
+# cd ~
+# git init
+# git remote add origin https://github.com/YuvaAthur/cmpe272.git
+# git pull origin master
 # 
 
 
@@ -17,7 +23,7 @@ language: python
 #sudo: false
 cache: pip
 python:
-  - "3.7"
+  - "3.4"
 
 # command to install dependencies
 install: "pip install -r requirements.txt"
