@@ -32,5 +32,6 @@ class DBTests(unittest.TestCase):
         print(books)
         
         
-if __name__ == "__main__":
-            unittest.main()
+# not required if running from pytest		
+# if __name__ == "__main__":
+# 	unittest.main()

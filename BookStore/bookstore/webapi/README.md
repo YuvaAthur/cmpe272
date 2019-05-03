@@ -49,4 +49,10 @@ $ . venv/bin/activate
 ```
 
 ### Set up REST API Server in Flask
-Ref: https://blog.miguelgrinberg.com/post/designing-a-restful-api-with-python-and-flask 
+* Ref: https://blog.miguelgrinberg.com/post/designing-a-restful-api-with-python-and-flask 
+* Running Flask in Debug Mode
+* Debug mode for Flask App
+* `export FLASK_APP=WebServer`
+* `export FLASK_ENV=development`
+* `flask run`
+

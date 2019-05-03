@@ -28,7 +28,8 @@ class DBTests(unittest.TestCase):
 		ret= add_cust(self.db,self.cust_rec1)
 		print("Added Customer with ID --",ret.inserted_id)
 		self.assertEqual(ret.inserted_id, 5)
-		
+
+# not required if running from pytest		
 # if __name__ == "__main__":
 # 	unittest.main()
 

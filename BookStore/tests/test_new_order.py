@@ -35,6 +35,7 @@ class DBTests(unittest.TestCase):
 		self.assertEqual(ret['NumItems'],2)
 		
 
-if __name__ == '__main__':
-    unittest.main()
+# not required if running from pytest		
+# if __name__ == "__main__":
+# 	unittest.main()
 
