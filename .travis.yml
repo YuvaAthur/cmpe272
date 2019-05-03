@@ -3,8 +3,18 @@
 # ref: https://blog.ionelmc.ro/2014/05/25/python-packaging/#ci-templates-travis-yml
 # ref: https://docs.python-guide.org/writing/structure/
 
+# Debugging Travis
+# Ref: https://stackoverflow.com/questions/21053657/how-to-run-travis-ci-locally
+# Pull docker ci-ruby image: 
+# `sudo docker pull travisci/ci-ruby:packer-1494868441`
+# `docker run -it travisci/ci-ruby:packer-1494868441 /bin/bash'
+# `su - travis`
+# 
+
+
+
 language: python
-sudo: false
+#sudo: false
 cache: pip
 python:
   - "3.7"
