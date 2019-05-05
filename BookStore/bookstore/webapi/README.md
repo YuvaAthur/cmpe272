@@ -52,7 +52,24 @@ $ . venv/bin/activate
 * Ref: https://blog.miguelgrinberg.com/post/designing-a-restful-api-with-python-and-flask 
 * Running Flask in Debug Mode
 * Debug mode for Flask App
-* `export FLASK_APP=WebServer`
+* `export FLASK_APP=web_server`
 * `export FLASK_ENV=development`
 * `flask run`
 
+
+### Unit Testing API end points
+* Exploring creating RESTful Services
+    * Ref: https://blog.miguelgrinberg.com/post/designing-a-restful-api-with-python-and-flask
+    * Self-contained web_server.py
+    * include dummy data for tests
+    * use flask_testing for unit tests
+
+* Structure of Web Server project for complex app
+    * Ref: http://exploreflask.com/en/latest/organizing.html
+        * Ref: Example: https://github.com/nicolewhite/neo4j-flask 
+    * Restructuring test code above as follows
+        * trial/ : contains code of previous testing experiement
+        * following dir structure as recommended in Ref
+            * /config.py : for configuration settings
+            * /app/__init__.py : Flask application initialization
+            * /instance/config.py : Ignoring for now 

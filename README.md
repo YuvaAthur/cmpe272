@@ -37,7 +37,6 @@ $ git init
 $ git remote add origin https://github.com/YuvaAthur/cmpe272.git
 $ git pull origin master
 ```
-* Remove Git from root directory ```rm -rf .git```
 
 
 * Remote connection from VSCode
@@ -62,8 +61,28 @@ sudo chmod a+x /usr/local/bin/rmate
 ```
 RemoteForward 52698 127.0.0.1:52698
 ```
+* Or use command line
 ```
 ssh -R 52698:localhost:52698 ec2-54-80-101-121.compute-1.amazonaws.com 
+```
+* Consider using sshfs to mount remote fs over ssh
+    * Ref: https://www.digitalocean.com/community/tutorials/how-to-use-sshfs-to-mount-remote-file-systems-over-ssh
+* Install Fuse and sshfs on Mac OS
+    * Ref: https://osxfuse.github.io/
+```
+sudo apt-get install sshfs # for linux
+```
+
+* Create a mount point
+    * Note: Change from ```defer_permissions``` to ```default_permissions```
+```
+sudo mkdir /mnt/awscmpe272
+sudo sshfs -o allow_other,default_permissions,IdentityFile=~/.ssh/CMPE272 ubuntu@ec2-54-80-101-121.compute-1.amazonaws.com:CMPE272 /mnt/awscmpe272
+
+```
+* Unmount
+```
+sudo umount /mnt/awscmpe272
 ```
 
 
