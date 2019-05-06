@@ -27,7 +27,7 @@ def get_book(isbn):             #unique - should return ONLY one book
     return jsonify({'book': book})
 
 #POST orders: takes as input a JSON object with the order details (customer and books) and returns an order number
-# details['booklist'] = ['customerid':1,'booklist':[{'bookid':1,'qty':1},{'bookid':2,'qty':2}]]
+# details['booklist'] = ['customerid':1,'booklist':[{"bookid":1,'qty':1},{"bookid":2,'qty':2}]]
 @app.route('/api/v1.0/orders', methods=['POST'])
 def add_order(): 
     # data = request.get_json()
@@ -60,10 +60,11 @@ def add_order():
                 {
                     'id': app.orderitems[-1]['id'] + 1,
                     'orderid': newOrderId,
-                    'bookid': book['bookid'],
-                    'orderqty': book['qty']
+                    'bookid' : book,
+                    'orderqty':book
                 }
             )
+    # return jsonify (app.orderitems),201
     return jsonify({'orderid': newOrderId}), 201
 
 # def order_create():

@@ -49,7 +49,7 @@ app.orderitems = [
     {
         'id': 2,
         'orderid': 1,
-        'bookid': 2,
+        'book': 2,
         'orderqty' : 2
     }
 ]
