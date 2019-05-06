@@ -61,22 +61,12 @@ def add_order():
                     'id': app.orderitems[-1]['id'] + 1,
                     'orderid': newOrderId,
                     'bookid' : book,
-                    'orderqty':book
+                    'orderqty': book
                 }
             )
     # return jsonify (app.orderitems),201
     return jsonify({'orderid': newOrderId}), 201
 
-# def order_create():
-#     if request.content_type != JSON_MIME_TYPE:
-#         error = json.dumps({'error': 'Invalid Content Type'})
-#         return json_response(error, 400)
-#     data = request.json
-#     if not all([data.get('title'), data.get('customerid')]):
-#         error = json.dumps({'error': 'Missing field/s (title, customerid)'})
-#         return json_response(error, 400)
-
-    
 
 
 #PUT orders/number: "fulfills the order" - i.e. adjusts the inventory to account for the books shipped for this order.

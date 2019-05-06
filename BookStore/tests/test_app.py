@@ -56,7 +56,7 @@ class TestFlaskApi(TestCase):
         self.assertEqual(len(data['books']), 3)
 
     #@app.route('/api/v1.0/books/<int:BOOK_id>', methods=['GET'])
-    def test_get_one_BOOK(self):
+    def test_get_one_book(self):
         response = self.client.get("%s%s" % (BASE_BOOK_URL, '/978-1977051875'))
         data = json.loads(response.get_data())
         self.assertEqual(response.status_code, 200)
