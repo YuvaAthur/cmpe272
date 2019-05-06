@@ -25,3 +25,31 @@ app.books = [
 ]
 
 
+app.customer = [
+    {
+        'id':1,
+        'fname':'First',
+        'lname':'Customer'
+    }
+]
+
+app.orders = [
+    {
+        'id': 1,
+        'customerid': 1,
+    }
+]
+app.orderitems = [
+    {
+        'id': 1,
+        'orderid': 1,
+        'bookid': 1,
+        'orderqty' : 1
+    },
+    {
+        'id': 2,
+        'orderid': 1,
+        'bookid': 2,
+        'orderqty' : 2
+    }
+]

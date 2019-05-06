@@ -73,3 +73,6 @@ $ . venv/bin/activate
             * /config.py : for configuration settings
             * /app/__init__.py : Flask application initialization
             * /instance/config.py : Ignoring for now 
+
+### Implementing POST Method
+* Ref: https://github.com/rmotr/flask-api-example/blob/master/api/_03_post_method.py
