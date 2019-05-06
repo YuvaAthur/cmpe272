@@ -27,7 +27,7 @@ def get_book(isbn):             #unique - should return ONLY one book
     return jsonify({'book': book})
 
 #POST orders: takes as input a JSON object with the order details (customer and books) and returns an order number
-# details['booklist'] = ['customerid':1,'booklist':[{"bookid":1,'qty':1},{"bookid":2,'qty':2}]]
+# details['booklist'] = ['customerid':1,'booklist':[{'bookid':1,'qty':1},{'bookid':2,'qty':2}]]
 @app.route('/api/v1.0/orders', methods=['POST'])
 def add_order(): 
     # data = request.get_json()
@@ -69,4 +69,33 @@ def add_order():
 
 
 
+#Code written against MongoDB --> has to be adapted for JSON Collections!
+#TODO: Needs to be fixed for JSON
 #PUT orders/number: "fulfills the order" - i.e. adjusts the inventory to account for the books shipped for this order.
+@app.route('/api/v1.0/order_fulfill/<int:order_id>', methods=['PUT'])
+def fulfill_order(order_id):
+    orders = app.porders
+    books = app.pbooks
+    order_index = order_id - 1
+
+#    status = orders.getJSONObject(order_id).getJSONObject('status')
+#json.getJSONArray("content").getJSONObject(0).getString("article")
+#    status = orders[order_index].getString('status')
+    status = orders[order_index].get('status')
+    isbn = orders[order_index].get('isbn')
+    quantity_ordered = orders[order_index].get('quantity')
+    for book in books:
+        if(isbn == book.get('isbn')):
+            quantity_available = book.get('quantity')
+            bookid = book.get('id')
+
+    # quantity_available = books.getJSONObject(isbn).getJSONObject('quantity')
+    if ("Created" == status):
+        orders[order_index].update({'status':"Fulfilled"})
+        # TODO: Have to update document
+        # books[bookid].update({'quantity':(quantity_available-quantity_ordered)})
+
+
+    return jsonify({'orderid': order_id, 'fulfilled': quantity_ordered}), 201
+
+
