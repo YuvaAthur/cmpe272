@@ -65,12 +65,12 @@ class TestFlaskApi(TestCase):
     #@app.route('/api/v1.0/orders', methods=['POST'])
     def test_post_order_noval(self):
         response = self.client.post("%s" % (BASE_ORDER_URL))
-        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.status_code, 400) # Bad request return
 
 
     #@app.route('/api/v1.0/orders', methods=['POST'])
     def test_post_order(self):
-        print (BASE_ORDER_URL, custorder)
+        # print (BASE_ORDER_URL, custorder)
         response = self.client.post("%s%s" % (BASE_ORDER_URL, custorder))
         self.assertEqual(response.status_code, 201)
         data = json.loads(response.get_data())

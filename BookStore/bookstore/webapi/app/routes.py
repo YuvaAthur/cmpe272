@@ -27,16 +27,18 @@ def get_book(isbn):             #unique - should return ONLY one book
     return jsonify({'book': book})
 
 #POST orders: takes as input a JSON object with the order details (customer and books) and returns an order number
-# details['booklist'] = ['customerid':1,'booklist':{{'bookid':1,'qty':1},{'bookid':1,'qty':1}}]
-@app.route('/api/v1.0/orders', methods=['GET','POST'])
+# details['booklist'] = ['customerid':1,'booklist':[{'bookid':1,'qty':1},{'bookid':2,'qty':2}]]
+@app.route('/api/v1.0/orders', methods=['POST'])
 def add_order(): 
-    if not request.json : #or not 'customerid' in request.json:
-        abort(400) # Bad Request error
+    # data = request.get_json()
+    # print (data)
+    # return jsonify(data)
+    # return jsonify(request.values)
 
-    details = request.json
-    if not all([details.get('title'), details.get('customerid')]):
-        error = json.dumps({'error': 'Missing field/s (title, customerid)'})
-        return json_response(error, 400)
+    details = request.values
+    if not request.values or not 'customerid' in request.values:
+        abort(400) # Bad Request error
+    # return jsonify(details)
 
 
     # append order first
@@ -44,20 +46,22 @@ def add_order():
     app.orders.append(
          {
         'id': newOrderId,
-        'customerid': request.json['customerid']
+        'customerid': details['customerid']
         }
     )
     #append order items 
     booklist = details['booklist']
-    orderitems = []
+    # return jsonify(booklist)
+
+
     if(0 < len(booklist)): 
         for book in booklist:
-            orderItems.append(
+            app.orderitems.append(
                 {
                     'id': app.orderitems[-1]['id'] + 1,
                     'orderid': newOrderId,
-                    'bookid': book.id,
-                    'orderqty': book.qty
+                    'bookid': book['bookid'],
+                    'orderqty': book['qty']
                 }
             )
     return jsonify({'orderid': newOrderId}), 201

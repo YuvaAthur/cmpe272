@@ -42,7 +42,7 @@ $ . venv/bin/activate
 
 * run flask process in venv on port 80
 ```
-(venv) $ export FLASK_APP=WebServer.py
+(venv) $ export FLASK_APP=web_server.py
 (venv) $ sudo bash
 (venv) root $ . venv/bin/activate
 (venv) root $ flask run --host=0.0.0.0 --port=80
