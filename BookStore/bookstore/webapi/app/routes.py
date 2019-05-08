@@ -28,15 +28,18 @@ def get_book(isbn):             #unique - should return ONLY one book
 
 #POST orders: takes as input a JSON object with the order details (customer and books) and returns an order number
 # details['booklist'] = ['customerid':1,'booklist':[{'bookid':1,'qty':1},{'bookid':2,'qty':2}]]
+# send data in the BODY of the API call - not Query Parameters!
 @app.route('/api/v1.0/orders', methods=['POST'])
 def add_order(): 
     # data = request.get_json()
     # print (data)
     # return jsonify(data)
-    # return jsonify(request.values)
+    # return jsonify(request.values) # request.values contains query parameters
 
-    details = request.values
-    if not request.values or not 'customerid' in request.values:
+
+    details = request.json 
+    print(details)
+    if not request.json or not 'customerid' in request.json:
         abort(400) # Bad Request error
     # return jsonify(details)
 
@@ -60,11 +63,12 @@ def add_order():
                 {
                     'id': app.orderitems[-1]['id'] + 1,
                     'orderid': newOrderId,
-                    'bookid' : book,
-                    'orderqty': book
+                    'bookid' : book["bookid"],
+                    'orderqty': book["qty"]
                 }
             )
     # return jsonify (app.orderitems),201
+    print (app.orderitems)
     return jsonify({'orderid': newOrderId}), 201
 
 

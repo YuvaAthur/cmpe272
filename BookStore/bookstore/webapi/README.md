@@ -76,3 +76,30 @@ $ . venv/bin/activate
 
 ### Implementing POST Method
 * Ref: https://github.com/rmotr/flask-api-example/blob/master/api/_03_post_method.py
+* Debugging POST method
+    * Go for JSON Data:
+        * ```details = request.json ```
+        * In Postman send data in BODY Tab corresponding to JSON structure expected.
+````
+{
+	"customerid" : 1,
+	"booklist" : [
+		{ "bookid": 1, "qty":1}
+		
+		]
+}
+````
+* Unit Test approach 
+    * Set up headers in SetUp call :
+        * ``` self.headers = {'Content-type': 'application/json'} ```
+    * Pass a well formed JSON to Flask-Testing Client.
+        * ```BASE_ORDER_URL = 'http://127.0.0.1:5000/api/v1.0/orders' ```
+        * ```response = self.client.post(BASE_ORDER_URL, headers=self.headers, data=json.dumps(custorder)) ```
+
+    * Test for 
+        * HTTP Error
+        * Functional Error
+
+ 
+
+

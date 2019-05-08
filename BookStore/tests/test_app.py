@@ -21,15 +21,14 @@ BASE_BOOK_URL = 'http://127.0.0.1:5000/api/v1.0/books'
 BAD_BOOK_URL = '{}/5'.format(BASE_BOOK_URL)
 GOOD_BOOK_URL = '{}/3'.format(BASE_BOOK_URL)
 
-custorder = { 
-    'custorder' : {
+custorder = {
         'customerid':1,
         'booklist':[
             {'bookid':1,'qty':1},
             {'bookid':2,'qty':2}
         ]
     }
-}
+
 BASE_ORDER_URL = 'http://127.0.0.1:5000/api/v1.0/orders'
 
 
@@ -47,6 +46,7 @@ class TestFlaskApi(TestCase):
         self.backup_items = deepcopy(app.books)  
         self.app = app.test_client()
         self.app.testing = True
+        self.headers = {'Content-type': 'application/json'}
 
     #@app.route('/api/v1.0/books', methods=['GET'])
     def test_get_books(self):
@@ -69,12 +69,12 @@ class TestFlaskApi(TestCase):
 
 
     #@app.route('/api/v1.0/orders', methods=['POST'])
-    # def test_post_order(self):
-    #     # print (BASE_ORDER_URL, custorder)
-    #     response = self.client.post("%s%s" % (BASE_ORDER_URL, custorder))
-    #     self.assertEqual(response.status_code, 201)
-    #     data = json.loads(response.get_data())
-    #     self.assertEqual(len(data['orderid']), 1)
+    def test_post_order(self):
+        # print (BASE_ORDER_URL, custorder)
+        response = self.client.post(BASE_ORDER_URL, headers=self.headers, data=json.dumps(custorder))
+        self.assertEqual(response.status_code, 201)
+        data = json.loads(response.get_data())
+        self.assertEqual(data['orderid'], 2)
 
     def tearDown(self):
         # reset app.items to initial state
