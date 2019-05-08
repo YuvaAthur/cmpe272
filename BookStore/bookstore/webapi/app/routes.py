@@ -1,15 +1,19 @@
 from app import app
-from flask import jsonify, abort, make_response, request
+from flask import jsonify, abort, make_response, request, render_template
+
 
 
 #for testing
 from app import routescode
 
+user = {'username': 'Miguel'}
 
 @app.route('/')                 #decorator mapping root call
 @app.route('/index')            #decorator mapping /index call
 def index():
-        return "Hello, welcome to the Web Server of team  Warriors"
+    user = {'username': 'Miguel'}
+    return render_template('index.html', title='Home', user=user)
+        # return "Hello, welcome to the Web Server of team  Warriors"
 
 
 #GET books: returns a JSON list with all the book details, including number of copies available.

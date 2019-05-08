@@ -100,6 +100,33 @@ $ . venv/bin/activate
         * HTTP Error
         * Functional Error
 
+### Creating Web Forms
+* Ref: https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-ii-templates 
+* Make template
+    * ```/app/templates/index.html ```
+````
+<html>
+    <head>
+        <title> CME272 Warriors </title>
+    </head>
+    <body>
+        <h1>Hello, {{ user.username }}!</h1>
+        <h1> Welcome to CMPE 272 (2019) Warrior's Bookstore </h1>
+    </body>
+</html>
+````
+* In routes.py
+    * ``` from flask import render_template ```
+    * Add dummy user ``` user = {'username': 'Miguel'} ```
+    * to /index add:
+````
+    user = {'username': 'Miguel'}
+    return render_template('index.html', title='Home', user=user)
+````
+* Run Flask ```flask run```
+
+
+
  
 
 
