@@ -275,6 +275,10 @@ class RegistrationForm(Form):
         
     * Currently passing key is not working - defaulting to wtf Form approach 
 
+* Fix for secret key
+    * config.Config class is not working right
+    * direct import of config file with ``` app.config.from_object('config')``` works
+
 
 
 

@@ -1,13 +1,14 @@
 from flask import Flask, render_template, request
-# from flask_wtf import Form
+from flask_wtf import Form, FlaskForm
+# from wtforms import Form
 from flask_wtf.csrf import CSRFProtect, CSRFError
 from wtforms.validators import DataRequired
 from wtforms import DateField, StringField, TextAreaField
-from wtforms import Form, BooleanField, StringField, PasswordField, validators, SubmitField
+from wtforms import BooleanField, StringField, PasswordField, validators, SubmitField
 
 from wtforms_components import TimeField
 
-class LoginForm(Form):
+class LoginForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
     password = PasswordField('Password', validators=[DataRequired()])
     remember_me = BooleanField('Remember Me')
@@ -15,7 +16,7 @@ class LoginForm(Form):
 
 
 # REf: http://flask.pocoo.org/docs/0.12/patterns/wtforms/ 
-class RegistrationForm(Form):
+class RegistrationForm(FlaskForm):
     username = StringField('Username', [validators.Length(min=4, max=25)])
     email = StringField('Email Address', [validators.Length(min=6, max=35)])
     password = PasswordField('New Password', [
