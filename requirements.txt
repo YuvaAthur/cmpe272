@@ -3,7 +3,8 @@ certifi==2019.3.9
 dnspython==1.16.0  
 Flask==1.0.2  
 Flask-Login==0.4.1 
-Flask-Testing==0.7.1   
+Flask-Testing==0.7.1 
+Flask-WTF==0.14.2  
 mongomock===3.16.0  
 motor==2.0.0    
 pprint==0.1  
@@ -13,3 +14,7 @@ sentinels==1.0.0
 setuptools==40.8.0  
 six==1.10.0  
 tornado==5.1.1 
+validators==0.12.6  
+Werkzeug==0.15.2 
+wtf==0.1 
+WTForms-Components==0.10.4

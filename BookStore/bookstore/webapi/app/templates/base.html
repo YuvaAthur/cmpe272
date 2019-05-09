@@ -1,0 +1,18 @@
+<html>
+    <head>
+      {% if title %}
+      <title>{{ title }} - CME272 Warriors</title>
+      {% else %}
+      <title>CME272 Warriors</title>
+      {% endif %}
+    </head>
+    <body>
+        <div>Warriors Bookstore: 
+            <a href="/index">Home</a>
+            <a href="/login">Login</a>
+            <a href="/register">Register</a>
+        </div>
+        <hr>
+        {% block content %}{% endblock %}
+    </body>
+</html>

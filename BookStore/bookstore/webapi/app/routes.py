@@ -6,7 +6,11 @@ from flask import jsonify, abort, make_response, request, render_template
 #for testing
 from app import routescode
 
+# for rendering user name
 user = {'username': 'Miguel'}
+
+# for WTF framework
+from app.forms import LoginForm, RegistrationForm, PasskeyForm
 
 @app.route('/')                 #decorator mapping root call
 @app.route('/index')            #decorator mapping /index call
@@ -15,6 +19,25 @@ def index():
     return render_template('index.html', title='Home', user=user)
         # return "Hello, welcome to the Web Server of team  Warriors"
 
+#for testing purposes
+
+# using example from http://flask.pocoo.org/docs/0.12/patterns/wtforms/
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    form = RegistrationForm(request.form)
+    # if request.method == 'POST' and form.validate():
+    #     user = User(form.username.data, form.email.data,
+    #                 form.password.data)
+    #     db_session.add(user)
+    #     flash('Thanks for registering')
+    #     return redirect(url_for('login'))
+    return render_template('register.html', form=form)
+
+
+@app.route('/login')
+def login():
+    form = LoginForm(request.form)
+    return render_template('login.html', title='Sign In', form=form)
 
 #GET books: returns a JSON list with all the book details, including number of copies available.
 @app.route('/api/v1.0/books', methods=['GET'])
