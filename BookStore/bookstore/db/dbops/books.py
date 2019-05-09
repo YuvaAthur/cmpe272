@@ -2,14 +2,17 @@ import sys
 import pymongo
 
 
+
 def get_available_books(db):
     available_books = []
-    for record in db.inventory.find({}):
+    inventory = db['db.CUSTOMERS']
+    books = db['db.BOOKS']
+    for record in inventory.find({}):
         book_id = record['id']
         qty = record['qty']
         if qty <= 0:
             continue
-        book = db.books.find_one({'_id': book_id})
+        book = books.find_one({'_id': book_id})
         book['qty'] = qty
         available_books.append(book)
     return available_books

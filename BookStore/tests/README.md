@@ -68,6 +68,13 @@ TravisCI linked to GitHub: https://travis-ci.org/YuvaAthur/cmpe272
         * There seems to be an issue with responsiveness of Travis community edition.
         * Alternatively, we can trigger manually. 
         
+### Recreating DB using coding best practices
+* Ref: https://docs.python.org/3/library/unittest.html#organizing-test-code
+* new file : ```test_db_customers.y```
+* Quirks of ```unittest.TestCase```
+    * Each Test case gets a fresh instance of db. So persistency calls have to be chained to be tested! 
+* Mutlistep tests
+    * https://stackoverflow.com/questions/5387299/python-unittest-testcase-execution-order 
 
 
 

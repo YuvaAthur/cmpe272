@@ -4,7 +4,8 @@ import sys
 # Testing db ops
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 import bookstore
-# sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../bookstore/db')))
+
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../bookstore/db')))
 # import add_customer
 
 # Testing app routes

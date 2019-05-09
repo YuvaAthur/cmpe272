@@ -3,8 +3,8 @@ import pprint
 import bson
 
 myclient = pymongo.MongoClient("mongodb+srv://cmpe272:cmpe272@cluster0-g5aa2.mongodb.net/test")
-mydb = myclient["warriors_bookstore"]
-mycol = mydb["war_customers"]
+mydb = myclient["bookstore"]
+mycol = mydb["customer"]
 
 mylist = [
 { "_id" : 2, "FirstName" : "Apple", "LastName" : "Seed", "address" : {"street": "123 Fake Street", "city": "Faketon", "state": "MA", "zip": "12345"} , "contact" : {"phone" : 111-111-1111 , "email" : "apple@test.com"} },

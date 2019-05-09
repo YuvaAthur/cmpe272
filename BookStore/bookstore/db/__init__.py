@@ -1,6 +1,14 @@
 # To declare db package / module
-from .dbops import add_customer
-from .dbops import list_books
-from .dbops import new_order
+from .dbops import customers
+from .dbops import books
+from .dbops import orders
 from .dbops import popsample
-from .dbops import updinventory
+from .dbops import inventory
+
+# DB Names
+DB = "test_bookstore"
+BOOKS = "books"
+INVENTORY = "inventory" 
+CUSTOMERS = "customers"
+ORDERS = "orders"
+ORDER_LINES = "order_lines"

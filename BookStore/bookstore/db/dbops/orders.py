@@ -1,6 +1,17 @@
 import sys
 import pymongo
 
+
+def list_orders(db):
+	collection=db['db.ORDERS']
+	return (collection)
+
+def del_order(db,orderid):
+	collection=db['db.ORDERS']
+	
+	return (collection.delete_one({ "_id": orderid }))
+
+
 def create_order(db,customer_id,book_list):
 	collection=db["orders"]
 	collection2=db["order_lines"]	
