@@ -2,10 +2,25 @@ import sys
 import pymongo
 
 
+def add_book(db,book_rec1):
+	collection=db['db.BOOKS']
+	insert_book=collection.insert_one(book_rec1)
+	return(insert_book)
+
+def list_book(db):
+	collection=db['db.BOOKS']
+	return (collection)
+
+
+def del_book(db,bookid):
+	collection=db['db.BOOKS']
+	return (collection.delete_one({ "_id": bookid }))
+
+
 
 def get_available_books(db):
     available_books = []
-    inventory = db['db.CUSTOMERS']
+    inventory = db['db.BOOKS']
     books = db['db.BOOKS']
     for record in inventory.find({}):
         book_id = record['id']

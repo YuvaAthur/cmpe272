@@ -2,14 +2,16 @@ import sys
 import pymongo
 
 
-def list_cust(db):
-	collection=db['db.CUSTOMERS']
-	return (collection)
 
 def add_cust(db,cust_rec1):
 	collection=db['db.CUSTOMERS']
 	insert_cust=collection.insert_one(cust_rec1)
 	return(insert_cust)
+
+def list_cust(db):
+	collection=db['db.CUSTOMERS']
+	return (collection)
+
 
 def del_cust(db,custid):
 	collection=db['db.CUSTOMERS']

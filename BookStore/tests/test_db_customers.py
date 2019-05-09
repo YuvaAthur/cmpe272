@@ -31,7 +31,7 @@ class DBTests(unittest.TestCase):
 
     def step1(self):
         ret = add_cust(self.db,self.cust_rec1)
-        self.assertEqual(ret.inserted_id,5)
+        self.assertEqual(ret.inserted_id,self.custid)
 
     def step2(self):
         ret= list_cust(self.db)
