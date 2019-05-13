@@ -31,7 +31,7 @@ custorder = {
 
 BASE_ORDER_URL = 'http://127.0.0.1:5000/api/v1.0/orders'
 
-
+BASE_FULFILL_URL = 'http://127.0.0.1:5000/api/v1.0/order_fulfill' # /<int:order_id>
 
 # Ref: https://realpython.com/python-web-applications-with-flask-part-iii/ 
 class TestFlaskApi(TestCase):
@@ -69,12 +69,25 @@ class TestFlaskApi(TestCase):
 
 
     # #@app.route('/api/v1.0/orders', methods=['POST'])
-    # def test_post_order(self):
-    #     print (BASE_ORDER_URL, custorder)
-    #     response = self.client.post(BASE_ORDER_URL, headers=self.headers, data=json.dumps(custorder))
-    #     self.assertEqual(response.status_code, 201)
-    #     data = json.loads(response.get_data())
-    #     self.assertEqual(data['orderid'], 2)
+    def test_post_order(self):
+        print (
+            "\ntest_post_order URI = ", BASE_ORDER_URL, 
+            "\n for customer = ",custorder['customerid'], 
+            "\n with booklist = ", custorder['booklist']
+            )
+        response = self.client.post(BASE_ORDER_URL, headers=self.headers, data=json.dumps(custorder))
+        self.assertEqual(response.status_code, 201)
+        data = json.loads(response.get_data())
+        self.assertEqual(data['orderid'], 2)
+
+    # @app.route('/api/v1.0/order_fulfill/<int:order_id>', methods=['PUT'])
+    def test_fulfill_order(self):
+        print (
+            "\ntest_post_test_fulfill_order URI = ", BASE_FULFILL_URL, 
+            "\n for customer = ",custorder['customerid'], 
+            "\n with booklist = ", custorder['booklist']
+            )
+
 
     def tearDown(self):
         # reset app.items to initial state

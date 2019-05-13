@@ -278,6 +278,7 @@ class RegistrationForm(Form):
 * Fix for secret key
     * config.Config class is not working right
     * direct import of config file with ``` app.config.from_object('config')``` works
+    * commented ```# csrf =  forms.CSRFProtect(app)``` in ```__init__.py```
 
 
 

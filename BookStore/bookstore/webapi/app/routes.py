@@ -73,10 +73,10 @@ def add_order():
     # return jsonify(data)
     # return jsonify(request.values) # request.values contains query parameters
 
-
-    details = request.get_json() # .json 
-    print(details)
-    if not request.json: #or not 'customerid' in request.json:
+    print("routes::add_order POST -- start --")
+    details = request.json #get_json() # .json 
+    print("routes::add_order POST request", details)
+    if not details: #or not 'customerid' in request.json:
         abort(400) # Bad Request error
     # return jsonify(details)
 

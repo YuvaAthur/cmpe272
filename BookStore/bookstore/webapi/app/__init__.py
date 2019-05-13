@@ -14,4 +14,4 @@ from app import routes #app is Flask instance in this package
 # Forms
 from app import forms 
 
-csrf =  forms.CSRFProtect(app)
+# csrf =  forms.CSRFProtect(app)
