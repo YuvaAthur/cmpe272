@@ -63,20 +63,4 @@ class DBTests(DBTestsBase):
         self.assertEqual(ret['num_deleted_order'],1)
         self.assertEqual(ret['num_removed_order_lines'],2)
 
-	# def test_create_order(self):
-	# 	customer_id=5
-	# 	book_list={'id':1,'qty':2},{'id':2,'qty':3}
-	# 	ret=create_order(self.db,customer_id,book_list)
-	# 	print("Created Order with ID --",ret)
-	# 	self.assertEqual(ret['NumItems'],2)
-
-
-
-		# self.db.customer.insert_one(cust_rect1)
-		# self.db.customer.insert_one(cust_rect2)
-		# self.db.books.insert_one(book_rec1)
-		# self.db.books.insert_one(book_rec2)
-		# self.db.books.insert_one(book_rec3)
-		# self.db.inventory.insert_one(inv_rec1)
-		# self.db.inventory.insert_one(inv_rec2)
-
+	
