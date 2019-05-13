@@ -67,7 +67,28 @@ TravisCI linked to GitHub: https://travis-ci.org/YuvaAthur/cmpe272
     * Travis reports on tests on every check-in
         * There seems to be an issue with responsiveness of Travis community edition.
         * Alternatively, we can trigger manually. 
-        
+* Refactoring for sequential testing
+    * Ref:https://stackoverflow.com/questions/5387299/python-unittest-testcase-execution-order 
+    * Anonymizes testing to base class calls!
+        * ```step1(...), step2(...) stepN(...)``` 
+            * Sequential steps
+        * ```_steps(...)```
+            * uses ```dir(self)``` to list ```names``` in module ```test_db_base.py```
+            * Ref: https://docs.python.org/3.3/library/functions.html#dir
+            * ```name.startswith("step")``` collects steps
+            * dir result is sorted alphabetically (might need 0_ for 2 digits)
+
+
+
+* Setting DBTestBase class
+    * Ref: https://gist.github.com/twolfson/13f5f5784f67fd49b245 
+    * Idea:
+
+* DB Pymongo docuementatio: 
+    * Ref: http://api.mongodb.com/python/current/api/pymongo/collection.html
+    * Use this to discover return values and errors on collection operstions.
+
+
 ### Recreating DB using coding best practices
 * Ref: https://docs.python.org/3/library/unittest.html#organizing-test-code
 * new file : ```test_db_customers.y```
@@ -76,5 +97,8 @@ TravisCI linked to GitHub: https://travis-ci.org/YuvaAthur/cmpe272
 * Mutlistep tests
     * https://stackoverflow.com/questions/5387299/python-unittest-testcase-execution-order 
 
+### Making pytest ignore dbtest_ref directory
+* Ref: https://stackoverflow.com/questions/11117062/how-to-tell-py-test-to-skip-certain-directories 
+* Added ```setup.cfg``` in root directory
 
 

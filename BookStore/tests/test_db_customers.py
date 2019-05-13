@@ -1,15 +1,14 @@
-import unittest
-import mongomock
-import json
 
+from .test_db_base import DBTestsBase
 
 from .context import bookstore # needed by pytest & therefore travis
 
 from bookstore.db.dbops.customers import add_cust, list_cust, del_cust
 
-class DBTests(unittest.TestCase):
+# Ref: https://gist.github.com/twolfson/13f5f5784f67fd49b245
+# refactoring 
+class DBTests(DBTestsBase):
     def setUp(self):
-        self.client = mongomock.MongoClient()
         self.db = self.client[bookstore.db.DB]
         self.cust_rec1 = { 
             "_id" : 5, 
@@ -27,7 +26,6 @@ class DBTests(unittest.TestCase):
                 } 
             }
         self.custid = 5
-# Requirement: Execute in a specific order
 
     def step1(self):
         ret = add_cust(self.db,self.cust_rec1)
@@ -41,20 +39,55 @@ class DBTests(unittest.TestCase):
         ret = del_cust(self.db,self.custid)
         self.assertEqual(ret.deleted_count,1)
 
-    def _steps(self):
-        for name in dir(self): # dir() result is implicitly sorted
-            if name.startswith("step"):
-                yield name, getattr(self, name) 
 
-    def test_steps(self):
-        for name, step in self._steps():
-            try:
-                step()
-            except Exception as e:
-                self.fail("{} failed ({}: {})".format(step, type(e), e))
+# class DBTests(unittest.TestCase):
+#     def setUp(self):
+#         self.client = mongomock.MongoClient()
+#         self.db = self.client[bookstore.db.DB]
+#         self.cust_rec1 = { 
+#             "_id" : 5, 
+#             "FirstName" : "Apple", 
+#             "LastName" : "Seed", 
+#             "address" : {
+#                 "street": "123 Fake Street", 
+#                 "city": "Faketon", 
+#                 "state": "MA", 
+#                 "zip": "12345"
+#                 } , 
+#             "contact" : {
+#                 "phone" : "111-111-1111" , 
+#                 "email" : "apple@test.com"
+#                 } 
+#             }
+#         self.custid = 5
+# # Requirement: Execute in a specific order
 
-    def tearDown(self):
-        pass
+#     def step1(self):
+#         ret = add_cust(self.db,self.cust_rec1)
+#         self.assertEqual(ret.inserted_id,self.custid)
+
+#     def step2(self):
+#         ret= list_cust(self.db)
+#         self.assertEqual(ret.find().count(),1)
+
+#     def step3(self):
+#         ret = del_cust(self.db,self.custid)
+#         self.assertEqual(ret.deleted_count,1)
+
+#     def _steps(self):
+#         for name in dir(self): # dir() result is implicitly sorted
+#             if name.startswith("step"):
+#                 yield name, getattr(self, name) 
+
+#     def test_steps(self):
+#         for name, step in self._steps():
+#             try:
+#                 step()
+#             except Exception as e:
+#                 self.fail("{} failed ({}: {})".format(step, type(e), e))
+
+#     def tearDown(self):
+#         pass
 
 # Inidividual tests - have to be strung togethe anyway!
 

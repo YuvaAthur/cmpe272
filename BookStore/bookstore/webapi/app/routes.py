@@ -74,9 +74,9 @@ def add_order():
     # return jsonify(request.values) # request.values contains query parameters
 
 
-    details = request.json 
+    details = request.get_json() # .json 
     print(details)
-    if not request.json or not 'customerid' in request.json:
+    if not request.json: #or not 'customerid' in request.json:
         abort(400) # Bad Request error
     # return jsonify(details)
 

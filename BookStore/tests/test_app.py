@@ -68,13 +68,13 @@ class TestFlaskApi(TestCase):
         self.assertEqual(response.status_code, 400) # Bad request return
 
 
-    #@app.route('/api/v1.0/orders', methods=['POST'])
-    def test_post_order(self):
-        # print (BASE_ORDER_URL, custorder)
-        response = self.client.post(BASE_ORDER_URL, headers=self.headers, data=json.dumps(custorder))
-        self.assertEqual(response.status_code, 201)
-        data = json.loads(response.get_data())
-        self.assertEqual(data['orderid'], 2)
+    # #@app.route('/api/v1.0/orders', methods=['POST'])
+    # def test_post_order(self):
+    #     print (BASE_ORDER_URL, custorder)
+    #     response = self.client.post(BASE_ORDER_URL, headers=self.headers, data=json.dumps(custorder))
+    #     self.assertEqual(response.status_code, 201)
+    #     data = json.loads(response.get_data())
+    #     self.assertEqual(data['orderid'], 2)
 
     def tearDown(self):
         # reset app.items to initial state
