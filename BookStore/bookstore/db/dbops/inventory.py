@@ -19,16 +19,6 @@ def del_inv(db,invid):
 	return (collection.delete_one({ "_id": invid }))
 
 
-# TODO: This function needs to be checked
-def fulfill_order(db,order_id):
-	inventory=db[INVENTORY]
-	orders=db[ORDERS]
-	order_lines=db["order_lines"]	
-	for item in (order_lines.find({"OrderID" : order_id})):  # find line items with order ID
-		for avail in (inventory.find_one({"id" : item.BookID})): # find inventory value for one book
-			newvalues = { "$set": { "Quantity": avail.Quantity - 1 } }
-			print(avail.Quantity)
-	return 						# have to create an aggregated JSON for each book
 
 
 

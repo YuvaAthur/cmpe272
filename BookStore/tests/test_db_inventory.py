@@ -18,20 +18,22 @@ class DBTests(DBTestsBase):
         self.inv_rec1 = { 
             "_id" : 5,
             "book_id" : 2, 
-            "title" : "Android in Action, Second Edition", 
-            "Quantity" : 10
+            "quantity" : 10
             }
         self.invid = 5
 
     def step1(self):
+        print ("inventory::add_inv")
         ret = add_inv(self.db,self.inv_rec1)
         self.assertEqual(ret.inserted_id,self.invid)
 
     def step2(self):
+        print ("inventory::list_inv")
         ret= list_inv(self.db)
         self.assertEqual(ret.find().count(),1)
 
     def step3(self):
+        print ("inventory::del_inv")
         ret = del_inv(self.db,self.invid)
         self.assertEqual(ret.deleted_count,1)
 

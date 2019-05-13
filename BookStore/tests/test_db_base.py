@@ -26,8 +26,10 @@ class DBTestsBase(unittest.TestCase):
                 yield name, getattr(self, name) 
 
     def test_steps(self):
+        print ('\n')  # use pytest <test.py> -s option
         for name, step in self._steps():
             try:
+                print ("\n -- Base: ", name , ' ')
                 step()
             except Exception as e:
                 self.fail("{} failed ({}: {})".format(step, type(e), e))

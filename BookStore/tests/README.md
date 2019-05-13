@@ -100,5 +100,6 @@ TravisCI linked to GitHub: https://travis-ci.org/YuvaAthur/cmpe272
 ### Making pytest ignore dbtest_ref directory
 * Ref: https://stackoverflow.com/questions/11117062/how-to-tell-py-test-to-skip-certain-directories 
 * Added ```setup.cfg``` in root directory
+* Call with ``` pytest <test.py> -s  ``` to print out steps of execution
 
 
