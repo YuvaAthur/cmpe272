@@ -1,10 +1,12 @@
 from app import app
-from flask import jsonify, abort, make_response, request, render_template
-
-
+from flask import Flask, jsonify, abort, make_response, request, render_template, flash,redirect
+from flask_login import login_user, logout_user, current_user, login_required, login_manager
+from werkzeug.urls import url_parse
+from app.forms import LoginForm, RegistrationForm
+# from app.models import User
 
 #for testing
-from app import routescode
+from app import db_data
 
 # for rendering user name
 user = {'username': 'Miguel'}
@@ -20,33 +22,30 @@ def index():
         # return "Hello, welcome to the Web Server of team  Warriors"
 
 #for testing purposes
-
-# using example from http://flask.pocoo.org/docs/0.12/patterns/wtforms/
-@app.route('/register', methods=['GET', 'POST'])
-def register():
-    form = RegistrationForm() #(request.form)
-    # if request.method == 'POST' and form.validate():
-    #     user = User(form.username.data, form.email.data,
-    #                 form.password.data)
-    #     db_session.add(user)
-    #     flash('Thanks for registering')
-    #     return redirect(url_for('login'))
-    return render_template('register.html', form=form)
-
-
-# @app.route('/login')
-# def login():
-#     form = LoginForm(request.form)
-#     return render_template('login.html', title='Sign In', form=form)
-
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm(request.form)
     if form.validate_on_submit():
+        print("routes::login login form has data")
         flash('Login requested for user {}, remember_me={}'.format(
             form.username.data, form.remember_me.data))
         return redirect('/index')
     return render_template('login.html', title='Sign In', form=form)
+
+# using example from http://flask.pocoo.org/docs/0.12/patterns/wtforms/
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    # if current_user.is_authenticated:
+    #     return redirect(url_for('index'))
+    form = RegistrationForm()
+    if form.validate_on_submit():
+        user = User(username=form.username.data, email=form.email.data)
+        user.set_password(form.password.data)
+        # db.session.add(user)
+        # db.session.commit()
+        flash('Congratulations, you are now a registered user!')
+        return redirect(url_for('login'))
+    return render_template('register.html', title='Register', form=form)
 
 
 #GET books: returns a JSON list with all the book details, including number of copies available.

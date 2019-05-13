@@ -6,7 +6,7 @@ app.config.from_object('config')
 
 
 #for testing
-from app import routescode
+from app import db_data
 
 # API Code
 from app import routes #app is Flask instance in this package

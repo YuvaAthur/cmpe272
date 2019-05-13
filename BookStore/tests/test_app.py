@@ -50,6 +50,7 @@ class TestFlaskApi(TestCase):
 
     #@app.route('/api/v1.0/books', methods=['GET'])
     def test_get_books(self):
+        print ("\ntest_get_one_book ")
         response = self.client.get(BASE_BOOK_URL)
         self.assertEqual(response.status_code, 200)
         data = json.loads(response.get_data())
@@ -57,6 +58,7 @@ class TestFlaskApi(TestCase):
 
     #@app.route('/api/v1.0/books/<int:BOOK_id>', methods=['GET'])
     def test_get_one_book(self):
+        print ("\ntest_get_one_book ")
         response = self.client.get("%s%s" % (BASE_BOOK_URL, '/978-1977051875'))
         data = json.loads(response.get_data())
         self.assertEqual(response.status_code, 200)
@@ -64,6 +66,7 @@ class TestFlaskApi(TestCase):
     
     #@app.route('/api/v1.0/orders', methods=['POST'])
     def test_post_order_noval(self):
+        print ("\ntest_post_order_noval : Negative test")
         response = self.client.post("%s" % (BASE_ORDER_URL))
         self.assertEqual(response.status_code, 400) # Bad request return
 

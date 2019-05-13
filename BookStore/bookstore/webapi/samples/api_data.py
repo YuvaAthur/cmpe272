@@ -1,5 +1,7 @@
 from app import app
 
+# This is *NOT* consistent with DB Schema
+
 app.books = [
     {
         'id': 1,
