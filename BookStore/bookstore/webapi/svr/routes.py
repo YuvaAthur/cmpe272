@@ -5,16 +5,16 @@ from werkzeug.urls import url_parse
 from svr.forms import LoginForm, RegistrationForm
 
 # from db.dbops import books, customers, orders, inventory
-# from svr.models import AppDB
+from svr.models import AppDB
 
 # #for testing
-from . import db_data
+from svr import db_data
 
 
 # # for rendering user name
 user = {'username': 'Miguel'}
-# initdb = AppDB()    # initializes to Mongo DB : For testing use Mongo Mock
-# appdb = initdb.db
+initdb = AppDB()    # initializes to Mongo DB : For testing use Mongo Mock
+appdb = initdb.db
 
 
 @app.route('/')                 #decorator mapping root call
