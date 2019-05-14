@@ -43,14 +43,14 @@ class TestFlaskApi(TestCase):
         return app
 
     def setUp(self):
-        self.backup_items = deepcopy(app.books)  
+        # self.backup_items = deepcopy(app.books)  
         self.app = app.test_client()
         self.app.testing = True
         self.headers = {'Content-type': 'application/json'}
 
     #@app.route('/api/v1.0/books', methods=['GET'])
     def test_get_books(self):
-        print ("\ntest_get_one_book ")
+        print ("\ntest_app::test_get_books ")
         response = self.client.get(BASE_BOOK_URL)
         self.assertEqual(response.status_code, 200)
         data = json.loads(response.get_data())
@@ -58,7 +58,7 @@ class TestFlaskApi(TestCase):
 
     #@app.route('/api/v1.0/books/<int:BOOK_id>', methods=['GET'])
     def test_get_one_book(self):
-        print ("\ntest_get_one_book ")
+        print ("\ntest_app::test_get_one_book ")
         response = self.client.get("%s%s" % (BASE_BOOK_URL, '/978-1977051875'))
         data = json.loads(response.get_data())
         self.assertEqual(response.status_code, 200)
@@ -94,6 +94,6 @@ class TestFlaskApi(TestCase):
 
     def tearDown(self):
         # reset app.items to initial state
-        app.books = self.backup_items
+        # app.books = self.backup_items
         pass
 

@@ -4,7 +4,7 @@ from .context import bookstore # needed by pytest & therefore travis
 
 from bookstore.db.dbops.orders import create_order, fulfill_order, del_order
 from bookstore.db.dbops.customers import add_cust
-from bookstore.db.dbops.books import  add_book
+from bookstore.db.dbops.books import  add_book, get_available_books
 from bookstore.db.dbops.inventory  import add_inv
 
 
@@ -33,11 +33,14 @@ class DBTests(DBTestsBase):
         ret = add_book(self.db,self.book_rec2)
         ret = add_book(self.db,self.book_rec3)
         ret = add_inv(self.db,self.inv_rec1)
-        print ("orders::add inv book_id = ", self.inv_rec1['book_id'], " quantity = ", self.inv_rec1['quantity'] )
         ret = add_inv(self.db,self.inv_rec2)      
-        print ("orders::add inv book_id = ", self.inv_rec2['book_id'], " quantity = ", self.inv_rec2['quantity'] )
-        ret = add_inv(self.db,self.inv_rec3)      
-        print ("orders::add inv book_id = ", self.inv_rec3['book_id'], " quantity = ", self.inv_rec3['quantity'] )
+        ret = add_inv(self.db,self.inv_rec3)    
+        print ("orders::get_available_books")
+        ret = get_available_books(self.db)
+        self.assertEqual(len(ret),2)  
+        for book in ret:
+            print ("orders::get_available_books: book_id = ", book['_id']," quantity = ", book['quantity'] )
+
 
 
     def step1(self):

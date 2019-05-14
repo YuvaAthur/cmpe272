@@ -280,10 +280,26 @@ class RegistrationForm(Form):
     * direct import of config file with ``` app.config.from_object('config')``` works
     * commented ```# csrf =  forms.CSRFProtect(app)``` in ```__init__.py```
 
+### More Forms and navigations
+
+* Requirements:
+    * The front-end should allow customers to pick one or more books from the available ones 
+        *  
+    * and place an order for those books. Once an order is placed, the backend needs to simulate fulfilling the order (update the number of copies available for the ordered books).
 
 
 
 
+
+### Authentication
+* Ref: https://realpython.com/token-based-authentication-with-flask/ 
+
+
+### Other explorations
+* Ref: http://www.blog.pythonlibrary.org/2017/12/14/flask-101-adding-editing-and-displaying-data/ 
+* ``` flask_table``` 
+    * Needs strict table structure
+    * Not useful for JSON rendering
 
 
  

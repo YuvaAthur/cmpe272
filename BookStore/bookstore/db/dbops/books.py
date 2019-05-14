@@ -16,19 +16,17 @@ def del_book(db,bookid):
 	collection=db['db.BOOKS']
 	return (collection.delete_one({ "_id": bookid }))
 
-
-
 def get_available_books(db):
     available_books = []
-    inventory = db['db.BOOKS']
+    inventory = db['db.INVENTORY'] 
     books = db['db.BOOKS']
     for record in inventory.find({}):
-        book_id = record['id']
-        qty = record['qty']
+        book_id = record['book_id']
+        qty = record['quantity']
         if qty <= 0:
             continue
         book = books.find_one({'_id': book_id})
-        book['qty'] = qty
+        book['quantity'] = qty
         available_books.append(book)
     return available_books
 

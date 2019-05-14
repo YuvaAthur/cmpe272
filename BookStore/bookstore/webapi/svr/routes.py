@@ -1,23 +1,25 @@
-from app import app
+from svr import app
 from flask import Flask, jsonify, abort, make_response, request, render_template, flash,redirect
 from flask_login import login_user, logout_user, current_user, login_required, login_manager
 from werkzeug.urls import url_parse
-from app.forms import LoginForm, RegistrationForm
-# from app.models import User
+from svr.forms import LoginForm, RegistrationForm
 
-#for testing
-from app import db_data
+# from db.dbops import books, customers, orders, inventory
+# from svr.models import AppDB
 
-# for rendering user name
+# #for testing
+from . import db_data
+
+
+# # for rendering user name
 user = {'username': 'Miguel'}
+# initdb = AppDB()    # initializes to Mongo DB : For testing use Mongo Mock
+# appdb = initdb.db
 
-# for WTF framework
-from app.forms import LoginForm, RegistrationForm
 
 @app.route('/')                 #decorator mapping root call
 @app.route('/index')            #decorator mapping /index call
 def index():
-    user = {'username': 'Miguel'}
     return render_template('index.html', title='Home', user=user)
         # return "Hello, welcome to the Web Server of team  Warriors"
 
@@ -47,16 +49,18 @@ def register():
         return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form)
 
+## API List
 
 #GET books: returns a JSON list with all the book details, including number of copies available.
 @app.route('/api/v1.0/books', methods=['GET'])
 def get_books():
-    return jsonify({'books': app.books})
+    books = db_data.sample_books  # books.get_available_books()   #
+    return jsonify({'books': books})
 
 #GET books/isbn: returns a JSON object with the details of the book identified by ISBN, including number of copies available.
 @app.route('/api/v1.0/books/<string:isbn>', methods=['GET'])
 def get_book(isbn):             #unique - should return ONLY one book
-    books = app.books
+    books = db_data.sample_books
     book = [book for book in books if book['isbn'] == isbn]
     if len(book) == 0:
         abort(404)
@@ -67,22 +71,17 @@ def get_book(isbn):             #unique - should return ONLY one book
 # send data in the BODY of the API call - not Query Parameters!
 @app.route('/api/v1.0/orders', methods=['POST'])
 def add_order(): 
-    # data = request.get_json()
-    # print (data)
-    # return jsonify(data)
-    # return jsonify(request.values) # request.values contains query parameters
 
     print("routes::add_order POST -- start --")
-    details = request.json #get_json() # .json 
+    details = request.json 
     print("routes::add_order POST request", details)
     if not details: #or not 'customerid' in request.json:
         abort(400) # Bad Request error
     # return jsonify(details)
 
-
     # append order first
-    newOrderId = app.orders[-1]['id'] + 1
-    app.orders.append(
+    newOrderId = db_data.sample_orders[-1]['id'] + 1
+    db_data.sample_orders.append(
          {
         'id': newOrderId,
         'customerid': details['customerid']
@@ -95,16 +94,16 @@ def add_order():
 
     if(0 < len(booklist)): 
         for book in booklist:
-            app.orderitems.append(
+            db_data.sample_orderitems.append(
                 {
-                    'id': app.orderitems[-1]['id'] + 1,
+                    'id': db_data.sample_orderitems[-1]['id'] + 1,
                     'orderid': newOrderId,
                     'bookid' : book["bookid"],
                     'orderqty': book["qty"]
                 }
             )
-    # return jsonify (app.orderitems),201
-    print (app.orderitems)
+    # return jsonify (db_data.sample_orderitems),201
+    print (db_data.sample_orderitems)
     return jsonify({'orderid': newOrderId}), 201
 
 

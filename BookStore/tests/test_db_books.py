@@ -9,7 +9,6 @@ from bookstore.db.dbops.books import  add_book, list_book, del_book
 
 class DBTests(unittest.TestCase):
     def setUp(self):
-        self.client = mongomock.MongoClient()
         self.db = self.client[bookstore.db.DB]
         self.book_rec1 = { 
             "_id" : 4, 

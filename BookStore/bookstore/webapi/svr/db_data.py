@@ -1,6 +1,6 @@
-from app import app
 
-app.books = [
+
+sample_books = [
     { "_id" : 2, "title" : "Android in Action, Second Edition", "isbn" : "1935182722", "pageCount" : 592, "publishedDate" : { "date" : "2011-01-14T00:00:00.000-0800" }, "thumbnailUrl" : "https://s3.amazonaws.com/AKIAJC5RLADLUMVRPFDQ.book-thumb-images/ableson2.jpg", "shortDescription" : "Android in Action, Second Edition is a comprehensive tutorial for Android developers. Taking you far beyond \"Hello Android,\" this fast-paced book puts you in the driver's seat as you learn important architectural concepts and implementation strategies. You'll master the SDK, build WebKit apps using HTML 5, and even learn to extend or replace Android's built-in features by building useful and intriguing examples. ", "longDescription" : "When it comes to mobile apps, Android can do almost anything   and with this book, so can you! Android runs on mobile devices ranging from smart phones to tablets to countless special-purpose gadgets. It's the broadest mobile platform available.    Android in Action, Second Edition is a comprehensive tutorial for Android developers. Taking you far beyond \"Hello Android,\" this fast-paced book puts you in the driver's seat as you learn important architectural concepts and implementation strategies. You'll master the SDK, build WebKit apps using HTML 5, and even learn to extend or replace Android's built-in features by building useful and intriguing examples. ", "status" : "PUBLISH", "authors" : [ "W. Frank Ableson", "Robi Sen" ], "categories" : [ "Java" ] },
     { "_id" : 3, "title" : "Specification by Example", "isbn" : "1617290084", "pageCount" : 0, "publishedDate" : { "date" : "2011-06-03T00:00:00.000-0700" }, "thumbnailUrl" : "https://s3.amazonaws.com/AKIAJC5RLADLUMVRPFDQ.book-thumb-images/adzic.jpg", "status" : "PUBLISH", "authors" : [ "Gojko Adzic" ], "categories" : [ "Software Engineering" ] },
     { "_id" : 4, "title" : "Flex 3 in Action", "isbn" : "1933988746", "pageCount" : 576, "publishedDate" : { "date" : "2009-02-02T00:00:00.000-0800" }, "thumbnailUrl" : "https://s3.amazonaws.com/AKIAJC5RLADLUMVRPFDQ.book-thumb-images/ahmed.jpg", "longDescription" : "New web applications require engaging user-friendly interfaces   and the cooler, the better. With Flex 3, web developers at any skill level can create high-quality, effective, and interactive Rich Internet Applications (RIAs) quickly and easily. Flex removes the complexity barrier from RIA development by offering sophisticated tools and a straightforward programming language so you can focus on what you want to do instead of how to do it. And now that the major components of Flex are free and open-source, the cost barrier is gone, as well!    Flex 3 in Action is an easy-to-follow, hands-on Flex tutorial. Chock-full of examples, this book goes beyond feature coverage and helps you put Flex to work in real day-to-day tasks. You'll quickly master the Flex API and learn to apply the techniques that make your Flex applications stand out from the crowd.    Interesting themes, styles, and skins  It's in there.  Working with databases  You got it.  Interactive forms and validation  You bet.  Charting techniques to help you visualize data  Bam!  The expert authors of Flex 3 in Action have one goal   to help you get down to business with Flex 3. Fast.    Many Flex books are overwhelming to new users   focusing on the complexities of the language and the super-specialized subjects in the Flex eco-system; Flex 3 in Action filters out the noise and dives into the core topics you need every day. Using numerous easy-to-understand examples, Flex 3 in Action gives you a strong foundation that you can build on as the complexity of your projects increases.", "status" : "PUBLISH", "authors" : [ "Tariq Ahmed with Jon Hirschi", "Faisal Abid" ], "categories" : [ "Internet" ] },
@@ -22,36 +22,36 @@ app.books = [
     { "_id" : 21, "title" : "3D User Interfaces with Java 3D", "isbn" : "1884777902", "pageCount" : 520, "publishedDate" : { "date" : "2000-08-01T00:00:00.000-0700" }, "thumbnailUrl" : "https://s3.amazonaws.com/AKIAJC5RLADLUMVRPFDQ.book-thumb-images/barrilleaux.jpg", "longDescription" : "3D User Interfaces with Java 3D is a practical guide for providing next-generation applications with 3D user interfaces for manipulation of in-scene objects. Emphasis is on standalone and web-based business applications, such as for online sales and mass customization, but much of what this book offers has broad applicability to 3D user interfaces in other pursuits such as scientific visualization and gaming.  This book provides an extensive conceptual framework for 3D user interface techniques, and an in-depth introduction to user interface support in the Java 3D API, including such topics as picking, collision, and drag-and-drop. Many of the techniques are demonstrated in a Java 3D software framework included with the book, which also provides developers with many general-purpose building blocks for constructing their own user interfaces.    Applications and their use of 3D are approached realistically. The book is geared towards sophisticated user interfaces for the \"everyday user\" who doesn't have a lot of time to learn another application--much less a complicated one--and an everyday computer system without exotic devices like head mounted displays and data gloves. Perhaps the best description of this book is: \"A roadmap from Java 3D to 'Swing 3D'.\"", "status" : "PUBLISH", "authors" : [ "Jon Barrilleaux" ], "categories" : [ "Java", "Computer Graphics" ] }
 ]
 
-app.inventory = [
-    { "book_id" : 2, "title" : "Android in Action, Second Edition", "Quantity" : 10},
-    { "book_id" : 3, "title" : "Specification by Example", "Quantity" : 10},
-    { "book_id" : 4, "title" : "Flex 3 in Action", "Quantity" : 10},
-    { "book_id" : 5, "title" : "Flex 4 in Action", "Quantity" : 10},
-    { "book_id" : 6, "title" : "Collective Intelligence in Action", "Quantity" : 10},
-    { "book_id" : 7, "title" : "Zend Framework in Action", "Quantity" : 10},
-    { "book_id" : 8, "title" : "Flex on Java", "Quantity" : 10},
-    { "book_id" : 9, "title" : "Griffon in Action", "Quantity" : 10},
-    { "book_id" : 10, "title" : "OSGi in Depth", "Quantity" : 10},
-    { "book_id" : 11, "title" : "Flexible Rails", "Quantity" : 10},
-    { "book_id" : 13, "title" : "Hello! Flex 4", "Quantity" : 10},
-    { "book_id" : 14, "title" : "Coffeehouse", "Quantity" : 10},
-    { "book_id" : 15, "title" : "Team Foundation Server 2008 in Action", "Quantity" : 10},
-    { "book_id" : 16, "title" : "Brownfield Application Development in .NET", "Quantity" : 10},
-    { "book_id" : 17, "title" : "MongoDB in Action", "Quantity" : 10},
-    { "book_id" : 18, "title" : "Distributed Application Development with PowerBuilder 6.0", "Quantity" : 10},
-    { "book_id" : 19, "title" : "Jaguar Development with PowerBuilder 7", "Quantity" : 10},
-    { "book_id" : 20, "title" : "Taming Jaguar", "Quantity" : 10},
-    { "book_id" : 21, "title" : "3D User Interfaces with Java 3D", "Quantity" : 10}
+sample_inventory = [
+    { "book_id" : 2, "title" : "Android in Action, Second Edition", "quantity" : 10},
+    { "book_id" : 3, "title" : "Specification by Example", "quantity" : 10},
+    { "book_id" : 4, "title" : "Flex 3 in Action", "quantity" : 0},
+    { "book_id" : 5, "title" : "Flex 4 in Action", "quantity" : 10},
+    { "book_id" : 6, "title" : "Collective Intelligence in Action", "quantity" : 10},
+    { "book_id" : 7, "title" : "Zend Framework in Action", "quantity" : 0},
+    { "book_id" : 8, "title" : "Flex on Java", "quantity" : 10},
+    { "book_id" : 9, "title" : "Griffon in Action", "quantity" : 10},
+    { "book_id" : 10, "title" : "OSGi in Depth", "quantity" : 10},
+    { "book_id" : 11, "title" : "Flexible Rails", "quantity" : 0},
+    { "book_id" : 13, "title" : "Hello! Flex 4", "quantity" : 10},
+    { "book_id" : 14, "title" : "Coffeehouse", "quantity" : 10},
+    { "book_id" : 15, "title" : "Team Foundation Server 2008 in Action", "quantity" : 10},
+    { "book_id" : 16, "title" : "Brownfield Application Development in .NET", "quantity" : 10},
+    { "book_id" : 17, "title" : "MongoDB in Action", "quantity" : 10},
+    { "book_id" : 18, "title" : "Distributed Application Development with PowerBuilder 6.0", "quantity" : 10},
+    { "book_id" : 19, "title" : "Jaguar Development with PowerBuilder 7", "quantity" : 0},
+    { "book_id" : 20, "title" : "Taming Jaguar", "quantity" : 10},
+    { "book_id" : 21, "title" : "3D User Interfaces with Java 3D", "quantity" : 10}
 ]
 
-app.customer = [
+sample_customers = [
     { "_id" : 2, "FirstName" : "Apple", "LastName" : "Seed", "address" : {"street": "123 Fake Street", "city": "Faketon", "state": "MA", "zip": "12345"} , "contact" : {"phone" : 111-111-1111 , "email" : "apple@test.com"} },
     { "_id" : 3, "FirstName" : "Orange", "LastName" : "Seed", "address" : {"street": "45 Fake Street", "city": "Faketon", "state": "CA", "zip": "12345"} , "contact" : {"phone" : 222-111-1111 , "email" : "orange@test.com"}},
     { "_id" : 4, "FirstName" : "Grape", "LastName" : "Seed", "address" : {"street": "678 Fake Street", "city": "Faketon", "state": "FL", "zip": "12345"} , "contact" : {"phone" : 223-111-1111 , "email" : "grape@test.com"}},
     { "_id" : 5, "FirstName" : "Berry", "LastName" : "Seed", "address" : {"street": "900 Fake Street", "city": "Faketon", "state": "NH", "zip": "12345"} , "contact" : {"phone" : 333-111-1111 , "email" : "berry@test.com"}}
 ]
 
-app.orders = [
+sample_orders = [
     { "_id" : 1002, "customer_id" : 2 , "ship_address" : {"FirstName" : "Guava", "LastName" : "Seed", "street": "123 Fake Street", "city": "Faketon", "state": "MA", "zip": "12345"}  },
     { "_id" : 1003, "customer_id" : 3 , "ship_address" : {"FirstName" : "Apple", "LastName" : "Seed", "street": "123 Fake Street", "city": "Faketon", "state": "MA", "zip": "12345"}  },
     { "_id" : 1004, "customer_id" : 5 ,  "ship_address" : {"FirstName" : "Almond", "LastName" : "Seed", "street": "123 Fake Street", "city": "Faketon", "state": "MA", "zip": "12345"}  },
@@ -59,20 +59,20 @@ app.orders = [
     { "_id" : 1006, "customer_id" : 6 , "ship_address" : {"FirstName" : "Grape", "LastName" : "Seed", "street": "123 Fake Street", "city": "Faketon", "state": "MA", "zip": "12345"}  }
 ]
 
-app.orderitems = [
+sample_orderlines = [
     { "order_id" : 1002, "_id" : 1 , "book_id" : 765, "quantity" : 2 },
     { "order_id" : 1002, "_id" : 2 , "book_id" : 755, "quantity" : 2 },
     { "order_id" : 1002, "_id" : 3 , "book_id" : 665, "quantity" : 2 },
-    { "order_id" : 1003, "_id" : 1 , "book_id" : 565, "quantity" : 2  },
-    { "order_id" : 1003, "_id" : 2 , "book_id" : 465, "quantity" : 2  },
-    { "order_id" : 1004, "_id" : 1 ,  "book_id" : 365, "quantity" : 2  },
-    { "order_id" : 1005, "_id" : 1 , "book_id" : 165, "quantity" : 2  },
-    { "order_id" : 1005, "_id" : 2 , "book_id" : 265, "quantity" : 2  },
-    { "order_id" : 1005, "_id" : 3 , "book_id" : 65, "quantity" : 2  },
-    { "order_id" : 1005, "_id" : 4 , "book_id" : 55, "quantity" : 2  },
-    { "order_id" : 1005, "_id" : 5 , "book_id" : 76, "quantity" : 2  },
-    { "order_id" : 1006, "_id" : 1 , "book_id" : 6, "quantity" : 2  },
-    { "order_id" : 1006, "_id" : 2 , "book_id" : 5, "quantity" : 2  },
-    { "order_id" : 1006, "_id" : 3 , "book_id" : 7, "quantity" : 2  },
-    { "order_id" : 1006, "_id" : 4 , "book_id" : 8, "quantity" : 2  }
+    { "order_id" : 1003, "_id" : 4 , "book_id" : 565, "quantity" : 2  },
+    { "order_id" : 1003, "_id" : 5 , "book_id" : 465, "quantity" : 2  },
+    { "order_id" : 1004, "_id" : 6 ,  "book_id" : 365, "quantity" : 2  },
+    { "order_id" : 1005, "_id" : 7 , "book_id" : 165, "quantity" : 2  },
+    { "order_id" : 1005, "_id" : 8 , "book_id" : 265, "quantity" : 2  },
+    { "order_id" : 1005, "_id" : 9 , "book_id" : 65, "quantity" : 2  },
+    { "order_id" : 1005, "_id" : 10 , "book_id" : 55, "quantity" : 2  },
+    { "order_id" : 1005, "_id" : 11 , "book_id" : 76, "quantity" : 2  },
+    { "order_id" : 1006, "_id" : 12 , "book_id" : 6, "quantity" : 2  },
+    { "order_id" : 1006, "_id" : 13 , "book_id" : 5, "quantity" : 2  },
+    { "order_id" : 1006, "_id" : 14 , "book_id" : 7, "quantity" : 2  },
+    { "order_id" : 1006, "_id" : 15 , "book_id" : 8, "quantity" : 2  }
 ]

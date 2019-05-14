@@ -64,7 +64,7 @@ inv_rec1 = {
 inv_rec2 = { 
     "_id" : 2,
     "book_id" : 6, 
-    "quantity" : 40
+    "quantity" : 0
     }
 
 inv_rec3 = { 
