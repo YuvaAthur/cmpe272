@@ -7,7 +7,9 @@ from .context import bookstore # needed by pytest & therefore travis
 
 from bookstore.db.dbops.books import  add_book, list_book, del_book
 
-class DBTests(unittest.TestCase):
+from .test_db_base import DBTestsBase
+
+class DBTests(DBTestsBase):
     def setUp(self):
         self.db = self.client[bookstore.db.DB]
         self.book_rec1 = { 
@@ -42,22 +44,6 @@ class DBTests(unittest.TestCase):
     def step3(self):
         ret = del_book(self.db,self.bookid)
         self.assertEqual(ret.deleted_count,1)
-
-    def _steps(self):
-        for name in dir(self): # dir() result is implicitly sorted
-            if name.startswith("step"):
-                yield name, getattr(self, name) 
-
-    def test_steps(self):
-        for name, step in self._steps():
-            try:
-                step()
-            except Exception as e:
-                self.fail("{} failed ({}: {})".format(step, type(e), e))
-
-    def tearDown(self):
-        pass
-
 
 
 # Suite approach - not working - needs to be debugged.\

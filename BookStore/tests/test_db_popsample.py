@@ -8,16 +8,16 @@ from .context import bookstore # needed by pytest & therefore travis
 # from bookstore.db.dbops.inventory  import add_inv
 
 from bookstore.db.dbops.popsample import pop_books, pop_customers, pop_inventory, pop_orders
-from bookstore.webapi.app import db_data
+from bookstore.db.data import sample_data
 
 class DBTests(DBTestsBase):
     def setUp(self):
         self.db = self.client[bookstore.db.DB]
-        self.books = db_data.sample_books
-        self.customers = db_data.sample_customers
-        self.inventory = db_data.sample_inventory
-        self.orders = db_data.sample_orders
-        self.orderlines = db_data.sample_orderlines
+        self.books = sample_data.sample_books
+        self.customers = sample_data.sample_customers
+        self.inventory = sample_data.sample_inventory
+        self.orders = sample_data.sample_orders
+        self.orderlines = sample_data.sample_orderlines
 
     def step1(self):
         print (" --- Step 1: popsample::pop_books")

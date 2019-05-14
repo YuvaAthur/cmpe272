@@ -8,7 +8,7 @@ from svr.forms import LoginForm, RegistrationForm
 from svr.models import AppDB
 
 # #for testing
-from svr import db_data
+from db.data import sample_data
 
 
 # # for rendering user name
@@ -54,13 +54,13 @@ def register():
 #GET books: returns a JSON list with all the book details, including number of copies available.
 @app.route('/api/v1.0/books', methods=['GET'])
 def get_books():
-    books = db_data.sample_books  # books.get_available_books()   #
+    books = sample_data.sample_books  # books.get_available_books()   #
     return jsonify({'books': books})
 
 #GET books/isbn: returns a JSON object with the details of the book identified by ISBN, including number of copies available.
 @app.route('/api/v1.0/books/<string:isbn>', methods=['GET'])
 def get_book(isbn):             #unique - should return ONLY one book
-    books = db_data.sample_books
+    books = sample_data.sample_books
     book = [book for book in books if book['isbn'] == isbn]
     if len(book) == 0:
         abort(404)
@@ -80,10 +80,10 @@ def add_order():
     # return jsonify(details)
 
     # append order first
-    newOrderId = db_data.sample_orders[-1]['id'] + 1
-    db_data.sample_orders.append(
+    newOrderId = sample_data.sample_orders[-1]['_id'] + 1
+    sample_data.sample_orders.append(
          {
-        'id': newOrderId,
+        '_id': newOrderId,
         'customerid': details['customerid']
         }
     )
@@ -94,16 +94,16 @@ def add_order():
 
     if(0 < len(booklist)): 
         for book in booklist:
-            db_data.sample_orderitems.append(
+            sample_data.sample_orderlines.append(
                 {
-                    'id': db_data.sample_orderitems[-1]['id'] + 1,
+                    '_id': sample_data.sample_orderlines[-1]['_id'] + 1,
                     'orderid': newOrderId,
                     'bookid' : book["bookid"],
                     'orderqty': book["qty"]
                 }
             )
-    # return jsonify (db_data.sample_orderitems),201
-    print (db_data.sample_orderitems)
+    # return jsonify (sample_data.sample_orderitems),201
+    print (sample_data.sample_orderlines)
     return jsonify({'orderid': newOrderId}), 201
 
 

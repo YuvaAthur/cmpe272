@@ -6,8 +6,8 @@ import os
 import sys
 
 # # setting up model classes
-# sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-# import db
-# from db import dbops
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+import db
+from db import dbops
 
 

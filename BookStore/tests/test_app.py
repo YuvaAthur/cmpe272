@@ -15,7 +15,7 @@ from .context import bookstore # needed by pytest & therefore travis
 
 ## 
 from .context import webapi # added more system paths
-from app import app
+from  svr import app
 
 BASE_BOOK_URL = 'http://127.0.0.1:5000/api/v1.0/books'
 BAD_BOOK_URL = '{}/5'.format(BASE_BOOK_URL)
@@ -54,9 +54,10 @@ class TestFlaskApi(TestCase):
         response = self.client.get(BASE_BOOK_URL)
         self.assertEqual(response.status_code, 200)
         data = json.loads(response.get_data())
-        self.assertEqual(len(data['books']), 3)
+        self.assertEqual(len(data['books']), 19)
 
-    #@app.route('/api/v1.0/books/<int:BOOK_id>', methods=['GET'])
+    #@app.route('/api/v1.0/books/<int:BOOK_id>', methods=['GET']) 
+    ## Currently failing
     def test_get_one_book(self):
         print ("\ntest_app::test_get_one_book ")
         response = self.client.get("%s%s" % (BASE_BOOK_URL, '/978-1977051875'))
@@ -81,7 +82,7 @@ class TestFlaskApi(TestCase):
         response = self.client.post(BASE_ORDER_URL, headers=self.headers, data=json.dumps(custorder))
         self.assertEqual(response.status_code, 201)
         data = json.loads(response.get_data())
-        self.assertEqual(data['orderid'], 2)
+        self.assertEqual(data['orderid'], 1007)
 
     # @app.route('/api/v1.0/order_fulfill/<int:order_id>', methods=['PUT'])
     def test_fulfill_order(self):

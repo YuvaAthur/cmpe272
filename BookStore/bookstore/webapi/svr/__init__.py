@@ -1,4 +1,3 @@
-
 from flask import Flask
 
 app = Flask(__name__)
@@ -8,8 +7,8 @@ app.secret_key = 'development key'
 
 from . import routes
 from . import forms
-# from . import models
-# from . import db_data
+from . import models
+from db.data import sample_data # for local tests
 
 
 
@@ -26,8 +25,7 @@ from context import db
 
 # # # csrf =  forms.CSRFProtect(app)
 
-# # #for JSON testing
-# # import db_data
+
 
 
 
