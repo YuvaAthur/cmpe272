@@ -123,6 +123,9 @@ $ . venv/bin/activate
     user = {'username': 'Miguel'}
     return render_template('index.html', title='Home', user=user)
 ````
+* Adding Navigation bar
+    * Ref: https://code.tutsplus.com/tutorials/templating-with-jinja2-in-flask-essentials--cms-25571
+    * 
 * Run Flask ```flask run```
 ### Adding Flask-WTF 
 * Ref: https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-iii-web-forms 

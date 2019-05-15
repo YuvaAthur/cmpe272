@@ -1,3 +1,4 @@
+<!-- Jingo2 style : https://realpython.com/primer-on-jinja-templating/ -->
 <html>
     <head>
       {% if title %}
@@ -7,12 +8,14 @@
       {% endif %}
     </head>
     <body>
-        <div>Warriors Bookstore: 
+        <div>Warriors Bookstore:  <!-- simplest way to show a nav bar -->
             <a href="{{ url_for('index') }}">Home</a>
             <a href="{{ url_for('login') }}">Login</a>
             <a href="{{ url_for('register') }}">Register</a>
             <a href="{{ url_for('get_books') }}">Books</a>
         </div>
+
+        <!-- to display flash messages -->
         <hr>
         {% with messages = get_flashed_messages() %}
         {% if messages %}
@@ -23,6 +26,7 @@
         </ul>
         {% endif %}
         {% endwith %}
+        <!-- iterate through children blocks -->
         {% block content %}{% endblock %}
     </body>
 </html>

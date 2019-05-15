@@ -55,7 +55,8 @@ def register():
 @app.route('/api/v1.0/books', methods=['GET'])
 def get_books():
     books = sample_data.sample_books  # books.get_available_books()   #
-    return jsonify({'books': books})
+    # return jsonify({'books': books})  # for debugging - raw dump to UI
+    return render_template('books.html', title='Books Available to purchase', books=books,user=user)
 
 #GET books/isbn: returns a JSON object with the details of the book identified by ISBN, including number of copies available.
 @app.route('/api/v1.0/books/<string:isbn>', methods=['GET'])
