@@ -14,7 +14,10 @@ from db.data import sample_data
 
 # # for rendering user name
 user = {'username': 'Miguel'}
-initdb = AppDB()    # initializes to Mongo DB : For testing use Mongo Mock
+
+# initializes to Mongo DB : For testing use Mongo Mock
+initdb = AppDB()    
+initdb.popsample()
 appdb = initdb.db
 
 
@@ -56,6 +59,10 @@ def register():
 @app.route('/api/v1.0/books', methods=['GET'])
 def get_books():
     bookscol =  books.get_available_books(appdb)  #sample_data.sample_books  # 
+    if(0== len(bookscol)):      
+        flash('No books available - data loaded?')
+    else:
+        flash('Found {} books with quantity > 0 '.format(len(bookscol))) 
     # return jsonify({'books': books})  # for debugging - raw dump to UI
     return render_template('books.html', title='Books Available to purchase', books=bookscol,user=user)
 
