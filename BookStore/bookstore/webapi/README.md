@@ -287,7 +287,6 @@ class RegistrationForm(Form):
 
 * Requirements:
     * The front-end should allow customers to pick one or more books from the available ones 
-        *  
     * and place an order for those books. Once an order is placed, the backend needs to simulate fulfilling the order (update the number of copies available for the ordered books).
 
 

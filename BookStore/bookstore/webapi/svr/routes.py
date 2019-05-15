@@ -4,7 +4,8 @@ from flask_login import login_user, logout_user, current_user, login_required, l
 from werkzeug.urls import url_parse
 from svr.forms import LoginForm, RegistrationForm
 
-# from db.dbops import books, customers, orders, inventory
+from context import db
+from db.dbops import books, customers, orders, inventory
 from svr.models import AppDB
 
 # #for testing
@@ -54,9 +55,9 @@ def register():
 #GET books: returns a JSON list with all the book details, including number of copies available.
 @app.route('/api/v1.0/books', methods=['GET'])
 def get_books():
-    books = sample_data.sample_books  # books.get_available_books()   #
+    bookscol =  books.get_available_books(appdb)  #sample_data.sample_books  # 
     # return jsonify({'books': books})  # for debugging - raw dump to UI
-    return render_template('books.html', title='Books Available to purchase', books=books,user=user)
+    return render_template('books.html', title='Books Available to purchase', books=bookscol,user=user)
 
 #GET books/isbn: returns a JSON object with the details of the book identified by ISBN, including number of copies available.
 @app.route('/api/v1.0/books/<string:isbn>', methods=['GET'])
