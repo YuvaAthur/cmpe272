@@ -17,7 +17,8 @@ def del_book(db,bookid):
 	return (collection.delete_one({ "_id": bookid }))
 
 def get_available_books(db):
-    available_books = []
+    isbn_books = dict()
+    # available_books = []
     inventory = db['db.INVENTORY'] 
     books = db['db.BOOKS']
     for record in inventory.find({}):
@@ -27,9 +28,9 @@ def get_available_books(db):
             continue
         book = books.find_one({'_id': book_id})
         book['quantity'] = qty
-        # book['order_quantity'] = 0
-        available_books.append(book)
-    return available_books
+        isbn_books.update({book['isbn']: book})
+        # available_books.append(book)
+    return isbn_books                                       #, available_books
 
 if __name__ == "__main__":
     argv = sys.argv

@@ -8,13 +8,15 @@
         <table>
             <tr>
                 <th>Check to Order</th>
+                <th>Book ISBN</th>
                 <th>Book Title</th>
                 <th>Quantity Ordered</th>
             </tr>
         {% for book in books %}
             <tr> 
                 <td><input type="checkbox" id="id_{{book._id}}" name="ordered_books" value="{{book.isbn}}"> </td>
-                <td align="left"><label for="id_{{book._id}}">{{book.title}}</label></td>                    
+                <td align="left"><label for="id_{{book._id}}">{{book.isbn}}</label></td>  
+                <td align="left">{{book.title}}"</td>  
                 <td align="center"><input type = "number" id="id_{{book._id}}" name="ordered_qty" min = '0' value='0'}> </td>
             </tr>
         {% endfor %}
