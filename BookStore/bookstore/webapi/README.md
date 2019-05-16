@@ -289,6 +289,30 @@ class RegistrationForm(Form):
     * The front-end should allow customers to pick one or more books from the available ones 
     * and place an order for those books. Once an order is placed, the backend needs to simulate fulfilling the order (update the number of copies available for the ordered books).
 
+* Book Order Form
+    * ```books.html```
+        * Check box for each item
+            * Ref: https://coderwall.com/p/pkthoa/read-checkbox-in-flask 
+        * Add Quantity Integer field 
+````
+<tr> 
+    <td><input type="checkbox" id="id_{{book._id}}" name="ordered_books" value="{{book.isbn}}"> </td>
+    <td align="left"><label for="id_{{book._id}}">{{book.title}}</label></td>                    
+    <td align="center"><input type = "number" id="id_{{book._id}}" name="ordered_qty"}> </td>
+</tr>
+````
+* Transfer Order process
+    * Implement ``` if form.validate_on_submit():```
+    * Get Data from form:
+        * ```ordered_books = request.form.getlist("ordered_books") ```
+        * ```ordered_qty = request.form.getlist("ordered_qty") ```
+        * ``` ordered_books ``` and ``` ordered_qty ``` are values in ```books.html```
+    * flash the number of data points collected
+        * Checkbox list returns only checked values
+        * Input field with validation returns full list. 
+    * TODO: Validate only books checked are ordered 
+
+
 
 
 

@@ -1,8 +1,8 @@
 from svr import app
-from flask import Flask, jsonify, abort, make_response, request, render_template, flash,redirect
+from flask import Flask, jsonify, abort, make_response, request, render_template, flash,redirect, url_for
 from flask_login import login_user, logout_user, current_user, login_required, login_manager
 from werkzeug.urls import url_parse
-from svr.forms import LoginForm, RegistrationForm
+from svr.forms import LoginForm, RegistrationForm, BookOrderForm
 
 from context import db
 from db.dbops import books, customers, orders, inventory
@@ -22,7 +22,7 @@ appdb = initdb.db
 
 
 @app.route('/')                 #decorator mapping root call
-@app.route('/index')            #decorator mapping /index call
+@app.route('/index', methods=['GET','POST'])            #decorator mapping /index call
 def index():
     return render_template('index.html', title='Home', user=user)
         # return "Hello, welcome to the Web Server of team  Warriors"
@@ -30,12 +30,12 @@ def index():
 #for testing purposes
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    form = LoginForm(request.form)
+    form = LoginForm()
     if form.validate_on_submit():
         print("routes::login login form has data")
         flash('Login requested for user {}, remember_me={}'.format(
             form.username.data, form.remember_me.data))
-        return redirect('/index')
+        return redirect(url_for('index'))
     return render_template('login.html', title='Sign In', form=form)
 
 # using example from http://flask.pocoo.org/docs/0.12/patterns/wtforms/
@@ -56,15 +56,32 @@ def register():
 ## API List
 
 #GET books: returns a JSON list with all the book details, including number of copies available.
-@app.route('/api/v1.0/books', methods=['GET'])
+@app.route('/api/v1.0/books', methods=['GET','POST'])
 def get_books():
+    form = BookOrderForm()
     bookscol =  books.get_available_books(appdb)  #sample_data.sample_books  # 
-    if(0== len(bookscol)):      
-        flash('No books available - data loaded?')
-    else:
-        flash('Found {} books with quantity > 0 '.format(len(bookscol))) 
+    # if(0== len(bookscol)):      
+    #     flash('No books available - data loaded?')
+    # else:
+    #     flash('Found {} books with quantity > 0 '.format(len(bookscol))) 
     # return jsonify({'books': books})  # for debugging - raw dump to UI
-    return render_template('books.html', title='Books Available to purchase', books=bookscol,user=user)
+    if form.validate_on_submit():
+        ordered_books = request.form.getlist("ordered_books") # value of checkbox field
+        ordered_qty = request.form.getlist("ordered_qty") # value of orders 
+        # validate that checked book is the one for which order is being picked!
+        flash('Number of different Books ordered {} '.format(len(ordered_books)))
+        flash('Number of different Quantities ordered {} '.format(len(ordered_qty)))
+        for isbn in ordered_books:
+                flash('isbn value {} '.format(isbn))
+        for qty in ordered_qty:
+            if qty is not None :
+                flash('qty value {}'.format(qty))
+        # # print ('routes::get_books Number of different Books ordered ', len(ordered_books))
+        return redirect(url_for('index')) # to test URI change
+    return render_template('books.html', title='Books Available to purchase', books=bookscol,user=user, form=form)
+
+
+
 
 #GET books/isbn: returns a JSON object with the details of the book identified by ISBN, including number of copies available.
 @app.route('/api/v1.0/books/<string:isbn>', methods=['GET'])

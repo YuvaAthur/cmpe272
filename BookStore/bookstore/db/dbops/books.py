@@ -27,6 +27,7 @@ def get_available_books(db):
             continue
         book = books.find_one({'_id': book_id})
         book['quantity'] = qty
+        # book['order_quantity'] = 0
         available_books.append(book)
     return available_books
 

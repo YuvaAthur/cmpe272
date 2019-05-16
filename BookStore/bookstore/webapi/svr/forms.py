@@ -4,7 +4,7 @@ from flask_wtf import Form, FlaskForm
 from flask_wtf.csrf import CSRFProtect, CSRFError
 from wtforms.validators import DataRequired, ValidationError, Email, EqualTo
 from wtforms import DateField, StringField, TextAreaField
-from wtforms import BooleanField, StringField, PasswordField, validators, SubmitField
+from wtforms import BooleanField, StringField, PasswordField, validators, SubmitField, IntegerField
 
 
 from wtforms_components import TimeField
@@ -14,6 +14,13 @@ class LoginForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()])
     remember_me = BooleanField('Remember Me')
     submit = SubmitField('Sign In')
+
+
+class BookOrderForm(FlaskForm):
+    bookname = StringField('Bookname')
+    isbn = StringField('ISBN')
+    order_quantity = IntegerField('Number to Order')
+    submit = SubmitField('Order Books')
 
 
 # REf: http://flask.pocoo.org/docs/0.12/patterns/wtforms/ 
