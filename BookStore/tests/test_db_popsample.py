@@ -12,7 +12,7 @@ from bookstore.db.data import sample_data
 
 class DBTests(DBTestsBase):
     def setUp(self):
-        self.db = self.client[bookstore.db.DB]
+        self.db = self.client[bookstore.db.DATABASE]
         self.books = sample_data.sample_books
         self.customers = sample_data.sample_customers
         self.inventory = sample_data.sample_inventory

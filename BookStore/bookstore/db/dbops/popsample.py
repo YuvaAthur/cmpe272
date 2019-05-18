@@ -2,23 +2,23 @@ import sys
 import pymongo
 
 def pop_books(db,books):
-	collection=db['db.BOOKS'] 
+	collection=db['DATABASE.BOOKS'] 
 	ret=collection.insert_many(books)
 	return(ret)
 
 def pop_customers(db,cust):
-	collection=db['db.CUSTOMERS'] 
+	collection=db['DATABASE.CUSTOMERS'] 
 	ret=collection.insert_many(cust)
 	return(ret)
 
 def pop_inventory(db,inv):
-	collection=db['db.INVENTORY'] 
+	collection=db['DATABASE.INVENTORY'] 
 	ret=collection.insert_many(inv)
 	return(ret)
 
 def pop_orders(db,orders,orderlines):
-	ordercol=db['db.ORDERS'] 
-	lines=db['db.ORDER_LINES']
+	ordercol=db['DATABASE.ORDERS'] 
+	lines=db['DATABASE.ORDER_LINES']
 	ret1=ordercol.insert_many(orders)
 	print("popsample::pop_orders len(orderlines) = ", len(orderlines))
 	ret2=lines.insert_many(orderlines)

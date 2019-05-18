@@ -20,7 +20,7 @@ class BookOrderForm(FlaskForm):
     bookname = StringField('Bookname')
     isbn = StringField('ISBN')
     order_quantity = IntegerField('Number to Order')
-    submit = SubmitField('Order Books')
+    submit = SubmitField('Choose Quanity to Order')
 
 
 # REf: http://flask.pocoo.org/docs/0.12/patterns/wtforms/ 

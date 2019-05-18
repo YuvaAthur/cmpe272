@@ -5,17 +5,17 @@ from pprint import pprint
 
 
 def add_inv(db,inv_rec1):
-	collection=db['db.INVENTORY']
+	collection=db['DATABASE.INVENTORY']
 	insert_inv=collection.insert_one(inv_rec1)
 	return(insert_inv)
 
 def list_inv(db):
-	collection=db['db.INVENTORY']
+	collection=db['DATABASE.INVENTORY']
 	return (collection)
 
 
 def del_inv(db,invid):
-	collection=db['db.INVENTORY']
+	collection=db['DATABASE.INVENTORY']
 	return (collection.delete_one({ "_id": invid }))
 
 

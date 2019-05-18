@@ -8,7 +8,7 @@ from bookstore.db.dbops.inventory  import add_inv, list_inv, del_inv
 # refactoring 
 class DBTests(DBTestsBase):
     def setUp(self):
-        self.db = self.client[bookstore.db.DB]
+        self.db = self.client[bookstore.db.DATABASE]
 
 # Ref: https://gist.github.com/twolfson/13f5f5784f67fd49b245
 # refactoring 

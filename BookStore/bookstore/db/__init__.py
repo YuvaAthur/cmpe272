@@ -6,7 +6,7 @@ from .dbops import popsample
 from .dbops import inventory
 
 # DB Names
-DB = "test_bookstore"
+DATABASE = "test_bookstore"
 BOOKS = "books"
 INVENTORY = "inventory" 
 CUSTOMERS = "customers"

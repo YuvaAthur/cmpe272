@@ -4,17 +4,17 @@ import pymongo
 
 
 def add_cust(db,cust_rec1):
-	collection=db['db.CUSTOMERS']
+	collection=db['DATABASE.CUSTOMERS']
 	insert_cust=collection.insert_one(cust_rec1)
 	return(insert_cust)
 
 def list_cust(db):
-	collection=db['db.CUSTOMERS']
+	collection=db['DATABASE.CUSTOMERS']
 	return (collection)
 
 
 def del_cust(db,custid):
-	collection=db['db.CUSTOMERS']
+	collection=db['DATABASE.CUSTOMERS']
 	return (collection.delete_one({ "_id": custid }))
 
 

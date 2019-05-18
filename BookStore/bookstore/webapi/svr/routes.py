@@ -61,19 +61,19 @@ def get_books():
     form = BookOrderForm()
     isbn_books = books.get_available_books(appdb)  #sample_data.sample_books  # 
     books_list = list(isbn_books.values())
-    # if(0== len(books)):      
-    #     flash('No books available - data loaded?')
-    # else:
-    #     flash('Found {} books with quantity > 0 '.format(len(books))) 
-    # return jsonify({'books': books})  # for debugging - raw dump to UI
+        # if(0== len(books)):      
+        #     flash('No books available - data loaded?')
+        # else:
+        #     flash('Found {} books with quantity > 0 '.format(len(books))) 
+        # return jsonify({'books': books})  # for debugging - raw dump to UI
     if form.validate_on_submit():
         ordered_books = request.form.getlist("ordered_books") # value of checkbox field
         ordered_qty = request.form.getlist("ordered_qty") # value of orders 
         # validate that checked book is the one for which order is being picked!
         place_order = []
-        # flash('Number of different Books ordered {} '.format(len(ordered_books)))
-        # flash('Number of different Quantities ordered {} '.format(len(ordered_qty)))
-        isbn_list = list(isbn_books)
+            # flash('Number of different Books ordered {} '.format(len(ordered_books)))
+            # flash('Number of different Quantities ordered {} '.format(len(ordered_qty)))
+            isbn_list = list(isbn_books)
         flash('Number of isbn_books {} books_list {} '.format(len(isbn_list),len(books_list)))
         for isbn in ordered_books:
             # flash('Order for isbn {}'.format(isbn))
@@ -85,27 +85,25 @@ def get_books():
                     flash('Quantity ordered isbn {} index {} value{}'.format(isbn,i,ordered_qty[i]))
                     place_order.append(book)
                 i += 1
-            # if 0< int(ordered_qty[i]):
-            #     print ('routes::get_books book ordered ',book.keys())
-            #     book['order_quantity'] = int(ordered_qty[i])
-            #     place_order.append(book)
-            # i+=1
+                    # if 0< int(ordered_qty[i]):
+                    #     print ('routes::get_books book ordered ',book.keys())
+                    #     book['order_quantity'] = int(ordered_qty[i])
+                    #     place_order.append(book)
+                    # i+=1
         flash('Number of order lines {} '.format(len(place_order)))
-        # for book in place_order:
-        #     flash('isbn value {} quantity ordered {}'.format(book.isbn,book.order_quantity))
+            # for book in place_order:
+            #     flash('isbn value {} quantity ordered {}'.format(book.isbn,book.order_quantity))
 
-        # flash('Number of different Books ordered {} '.format(len(ordered_books)))
-        # flash('Number of different Quantities ordered {} '.format(len(ordered_qty)))
-        # for isbn in ordered_books:
-        #         flash('isbn value {} '.format(isbn))
-        # for qty in ordered_qty:
-        #     if qty is not None :
-        #         flash('qty value {}'.format(qty))
-        # # print ('routes::get_books Number of different Books ordered ', len(ordered_books))
+            # flash('Number of different Books ordered {} '.format(len(ordered_books)))
+            # flash('Number of different Quantities ordered {} '.format(len(ordered_qty)))
+            # for isbn in ordered_books:
+            #         flash('isbn value {} '.format(isbn))
+            # for qty in ordered_qty:
+            #     if qty is not None :
+            #         flash('qty value {}'.format(qty))
+            # # print ('routes::get_books Number of different Books ordered ', len(ordered_books))
         return redirect(url_for('index')) # to test URI change
     return render_template('books.html', title='Books Available to purchase', books=books_list,user=user, form=form)
-
-
 
 
 #GET books/isbn: returns a JSON object with the details of the book identified by ISBN, including number of copies available.

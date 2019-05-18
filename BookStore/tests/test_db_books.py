@@ -11,7 +11,7 @@ from .test_db_base import DBTestsBase
 
 class DBTests(DBTestsBase):
     def setUp(self):
-        self.db = self.client[bookstore.db.DB]
+        self.db = self.client[bookstore.db.DATABASE]
         self.book_rec1 = { 
             "_id" : 4, 
             "title" : "Flex 3 in Action", 

@@ -9,7 +9,7 @@ from bookstore.db.dbops.customers import add_cust, list_cust, del_cust
 # refactoring 
 class DBTests(DBTestsBase):
     def setUp(self):
-        self.db = self.client[bookstore.db.DB]
+        self.db = self.client[bookstore.db.DATABASE]
         self.cust_rec1 = { 
             "_id" : 5, 
             "FirstName" : "Apple", 

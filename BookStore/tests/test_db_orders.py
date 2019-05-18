@@ -13,7 +13,7 @@ from tests import db_data
 
 class DBTests(DBTestsBase):
     def setUp(self):
-        self.db = self.client[bookstore.db.DB]
+        self.db = self.client[bookstore.db.DATABASE]
         self.cust_rec1 = db_data.cust_rec1
         self.cust_rec2 = db_data.cust_rec2
         self.book_rec1 = db_data.book_rec1

@@ -287,7 +287,8 @@ class RegistrationForm(Form):
 
 * Requirements:
     * The front-end should allow customers to pick one or more books from the available ones 
-    * and place an order for those books. Once an order is placed, the backend needs to simulate fulfilling the order (update the number of copies available for the ordered books).
+    * and place an order for those books. 
+    * Once an order is placed, the backend needs to simulate fulfilling the order (update the number of copies available for the ordered books).
 
 * Book Order Form
     * ```books.html```
@@ -301,7 +302,7 @@ class RegistrationForm(Form):
     <td align="center"><input type = "number" id="id_{{book._id}}" name="ordered_qty"}> </td>
 </tr>
 ````
-* Transfer Order process
+* Book selection + Quantity inputs
     * Implement ``` if form.validate_on_submit():```
     * Get Data from form:
         * ```ordered_books = request.form.getlist("ordered_books") ```
@@ -311,6 +312,12 @@ class RegistrationForm(Form):
         * Checkbox list returns only checked values
         * Input field with validation returns full list. 
     * TODO: Validate only books checked are ordered 
+
+* Change in UI Flow
+    * (1) Select book.  (2) Place order, (3) Review Order, (4) Create/Confirm order. 
+    * (1) Select book
+        * Use checkbox to determine which books are selected
+    * (2) Place order
 
 
 

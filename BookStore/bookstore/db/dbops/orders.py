@@ -4,14 +4,14 @@ import json
 
 
 def list_orders(db):
-	orders=db['db.ORDERS'] 
+	orders=db['DATABASE.ORDERS'] 
 	return (orders)
 
 def create_order(db,customer_id,book_list):
-	orders=db["db.ORDERS"]
+	orders=db["DATABASE.ORDERS"]
 	newOrderId = 1 if (0 == orders.count_documents({})) else orders.count_documents({})  + 1
 	print ("create_order::order id = ", newOrderId)
-	order_lines=db["db.ORDER_LINES"]	
+	order_lines=db["DATABASE.ORDER_LINES"]	
 	# begin transaction
 	ret=orders.insert_one({'_id':newOrderId, 'customer_id' : customer_id})
 	print("create_order::order insert_one ret = ",ret.inserted_id)
@@ -25,10 +25,10 @@ def create_order(db,customer_id,book_list):
 
 
 def fulfill_order(db,order_id):
-	inventory=db["db.INVENTORY"]
-	books=db["db.BOOKS"]
-	orders=db["db.ORDERS"]
-	order_lines=db["db.ORDER_LINES"]	
+	inventory=db["DATABASE.INVENTORY"]
+	books=db["DATABASE.BOOKS"]
+	orders=db["DATABASE.ORDERS"]
+	order_lines=db["DATABASE.ORDER_LINES"]	
 	fulfilled_books = []
 	for item in (order_lines.find({"order_id" : order_id})):  # find line items with order ID
 		print("orders::fulfill_order item book_id = ", item['book_id'], " ; quantity = ", item['quantity'])
@@ -51,8 +51,8 @@ def fulfill_order(db,order_id):
 
 # TODO: This function needs to be checked
 def del_order(db,order_id):
-	orders=db['db.ORDERS']
-	order_lines=db["db.ORDER_LINES"]	
+	orders=db['DATABASE.ORDERS']
+	order_lines=db["DATABASE.ORDER_LINES"]	
 	# begin transaction
 	del1 = order_lines.delete_many({'order_id' : order_id})
 	print ("orders::del_order deleted ",del1.deleted_count," order_lines with order_id = ", order_id, "")
