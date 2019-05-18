@@ -46,7 +46,7 @@ class DBTests(DBTestsBase):
     def step1(self):
         print ("orders::create_order")
         customer_id=5
-        book_list={'book_id':4,'quantity':2},{'book_id':19,'quantity':3}
+        book_list={'book_isbn':4,'quantity':2},{'book_isbn':19,'quantity':3}
         ret=create_order(self.db,customer_id,book_list)
         #{"order_id": newOrderId, "num_order_lines" : len(book_list)}
         self.assertEqual(ret['num_order_lines'],2)

@@ -1,8 +1,9 @@
 from svr import app
 from flask import Flask, jsonify, abort, make_response, request, render_template, flash,redirect, url_for
+from flask import current_app, g
 from flask_login import login_user, logout_user, current_user, login_required, login_manager
 from werkzeug.urls import url_parse
-from svr.forms import LoginForm, RegistrationForm, BookOrderForm
+from svr.forms import LoginForm, RegistrationForm, BookOrderForm, QuantityOrderForm , ConfirmOrderForm
 
 from context import db
 from db.dbops import books, customers, orders, inventory
@@ -67,53 +68,69 @@ def get_books():
         #     flash('Found {} books with quantity > 0 '.format(len(books))) 
         # return jsonify({'books': books})  # for debugging - raw dump to UI
     if form.validate_on_submit():
-        ordered_books = request.form.getlist("ordered_books") # value of checkbox field
-        ordered_qty = request.form.getlist("ordered_qty") # value of orders 
-        # validate that checked book is the one for which order is being picked!
-        place_order = []
-            # flash('Number of different Books ordered {} '.format(len(ordered_books)))
-            # flash('Number of different Quantities ordered {} '.format(len(ordered_qty)))
-            isbn_list = list(isbn_books)
-        flash('Number of isbn_books {} books_list {} '.format(len(isbn_list),len(books_list)))
-        for isbn in ordered_books:
-            # flash('Order for isbn {}'.format(isbn))
-            book = isbn_books.get(isbn)
-            i = 0
-            for k in isbn_list:
-                if isbn == k:
-                    book['order_quantity'] = int(ordered_qty[i])
-                    flash('Quantity ordered isbn {} index {} value{}'.format(isbn,i,ordered_qty[i]))
-                    place_order.append(book)
-                i += 1
-                    # if 0< int(ordered_qty[i]):
-                    #     print ('routes::get_books book ordered ',book.keys())
-                    #     book['order_quantity'] = int(ordered_qty[i])
-                    #     place_order.append(book)
-                    # i+=1
-        flash('Number of order lines {} '.format(len(place_order)))
-            # for book in place_order:
-            #     flash('isbn value {} quantity ordered {}'.format(book.isbn,book.order_quantity))
-
-            # flash('Number of different Books ordered {} '.format(len(ordered_books)))
-            # flash('Number of different Quantities ordered {} '.format(len(ordered_qty)))
-            # for isbn in ordered_books:
-            #         flash('isbn value {} '.format(isbn))
-            # for qty in ordered_qty:
-            #     if qty is not None :
-            #         flash('qty value {}'.format(qty))
-            # # print ('routes::get_books Number of different Books ordered ', len(ordered_books))
-        return redirect(url_for('index')) # to test URI change
+        checked_books = request.form.getlist("ordered_books") # value of checkbox field
+        flash('Number of different Books checked {} '.format(len(checked_books)))
+        app.ordered_books=[]
+        for isbn in checked_books:
+            book = get_book(isbn)
+            app.ordered_books.append(book)      
+        return redirect(url_for('get_order')) # to test URI change
     return render_template('books.html', title='Books Available to purchase', books=books_list,user=user, form=form)
 
 
+#GET POST: Choose number of books to orde
+@app.route('/api/v1.0/order', methods=['GET','POST'])
+def get_order():
+    form = QuantityOrderForm()
+    books_list = app.ordered_books  
+    if form.validate_on_submit():
+        ordered_qty = request.form.getlist("ordered_qty")
+        i = 0
+        for qty in ordered_qty:
+            books_list[i]['quantity'] = int(qty)
+            flash ('routes::get_order book ordered {} quantity {}'.format(books_list[i]['title'],books_list[i]['quantity']))
+            i += 1
+        i = 0
+        length = len(books_list)
+        while i < length:
+            if (0 == books_list[i]['quantity']):
+                books_list.remove(books_list[i])
+                length -= 1
+                continue
+            i += 1
+        flash ('routes::get_order book final order {}'.format(len(books_list)))        
+        # return render_template('index.html', title='Home', user=user)
+        return redirect(url_for('confirm_order'))
+    return render_template('order.html', title='Choose quantity for selected books', books=books_list,user=user, form=form)
+
+#GET POST: Confirm books ordered
+@app.route('/api/v1.0/confirm', methods=['GET','POST'])
+def confirm_order():
+    form = ConfirmOrderForm()
+    books_list = app.ordered_books
+    for book in books_list:
+        flash ('routes::confirm_order book ordered {} quantity {}'.format(book['title'],book['quantity']))
+    ordered_qty = [] 
+    if form.validate_on_submit():
+        # return render_template('index.html', title='Home', user=user) # for debugging flow
+        return redirect(url_for('get_books'))
+    return render_template('confirm.html', title='Confirm quantity for selected books', books_list=books_list,user=user, form=form)
+
+
+
+#''''
+#Search functions -------
+#''''
 #GET books/isbn: returns a JSON object with the details of the book identified by ISBN, including number of copies available.
 @app.route('/api/v1.0/books/<string:isbn>', methods=['GET'])
 def get_book(isbn):             #unique - should return ONLY one book
-    books = sample_data.sample_books
-    book = [book for book in books if book['isbn'] == isbn]
-    if len(book) == 0:
+    books_list = books.get_available_books(appdb) # returns a dictionary
+    book = books_list[isbn] 
+    print ("routes::get_book(isbn) : found book", book)
+    # book = [book for book in books_list if books_list['isbn'] == isbn]
+    if 0 == len(book):
         abort(404)
-    return jsonify({'book': book})
+    return book
 
 #POST orders: takes as input a JSON object with the order details (customer and books) and returns an order number
 # details['booklist'] = ['customerid':1,'booklist':[{'bookid':1,'qty':1},{'bookid':2,'qty':2}]]

@@ -19,9 +19,19 @@ class LoginForm(FlaskForm):
 class BookOrderForm(FlaskForm):
     bookname = StringField('Bookname')
     isbn = StringField('ISBN')
-    order_quantity = IntegerField('Number to Order')
     submit = SubmitField('Choose Quanity to Order')
 
+class QuantityOrderForm(FlaskForm):
+    bookname = StringField('Bookname')
+    isbn = StringField('ISBN')
+    submit = SubmitField('Review Order')
+
+
+class ConfirmOrderForm(FlaskForm):
+    bookname = StringField('Bookname')
+    isbn = StringField('ISBN')
+    order_quantity = IntegerField('Number to Order')
+    submit = SubmitField('Confirm Order')
 
 # REf: http://flask.pocoo.org/docs/0.12/patterns/wtforms/ 
 class RegistrationForm(FlaskForm):

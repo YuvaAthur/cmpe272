@@ -319,6 +319,45 @@ class RegistrationForm(Form):
         * Use checkbox to determine which books are selected
     * (2) Place order
 
+* Check point:
+```` Debug code in routes.oy get_books call. 
+# #        ordered_qty = request.form.getlist("ordered_qty") # value of orders 
+#         # validate that checked book is the one for which order is being picked!
+#         place_order = []
+#             # flash('Number of different Quantities ordered {} '.format(len(ordered_qty)))
+#         isbn_list = list(isbn_books)
+#         flash('Number of isbn_books {} books_list {} '.format(len(isbn_list),len(books_list)))
+#         for isbn in ordered_books:
+#             # flash('Order for isbn {}'.format(isbn))
+#             book = isbn_books.get(isbn)
+#             i = 0
+#             for k in isbn_list:
+#                 if isbn == k:
+#                     book['order_quantity'] = int(ordered_qty[i])
+#                     flash('Quantity ordered isbn {} index {} value{}'.format(isbn,i,ordered_qty[i]))
+#                     place_order.append(book)
+#                 i += 1
+#                     # if 0< int(ordered_qty[i]):
+#                     #     print ('routes::get_books book ordered ',book.keys())
+#                     #     book['order_quantity'] = int(ordered_qty[i])
+#                     #     place_order.append(book)
+#                     # i+=1
+#         flash('Number of order lines {} '.format(len(place_order)))
+#             # for book in place_order:
+#             #     flash('isbn value {} quantity ordered {}'.format(book.isbn,book.order_quantity))
+
+#             # flash('Number of different Books ordered {} '.format(len(ordered_books)))
+#             # flash('Number of different Quantities ordered {} '.format(len(ordered_qty)))
+#             # for isbn in ordered_books:
+#             #         flash('isbn value {} '.format(isbn))
+#             # for qty in ordered_qty:
+#             #     if qty is not None :
+#             #         flash('qty value {}'.format(qty))
+#             # # print ('routes::get_books Number of different Books ordered ', len(ordered_books))
+''''
+
+
+
 
 
 

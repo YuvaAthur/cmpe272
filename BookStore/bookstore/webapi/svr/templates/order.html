@@ -1,23 +1,21 @@
 {% extends "base.html" %}
 
 {% block content %} <!-- inputs: form, user, books -->
-<h1> User: {{ user.username }}</h1>
+<h1> User: {{ user.username }} : Place order for books selected </h1>
 <form action="" method="post" novalidate>
         {{form.hidden_tag()}}
     <hr>
         <table>
             <tr>
-                <th>Check to Order</th>
-                <th>Book ISBN</th>
+                <th>Book ISBN </th>
                 <th>Book Title</th>
- <!-- move to order form                <th>Quantity Ordered</th> -->
+                <th>Quantity Required</th>
             </tr>
         {% for book in books %}
             <tr> 
-                <td><input type="checkbox" id="id_{{book._id}}" name="ordered_books" value="{{book.isbn}}"> </td>
-                <td align="left"><label for="id_{{book._id}}">{{book.isbn}}</label></td>  
+                <td align="left">{{book.isbn}}</label></td>  
                 <td align="left">{{book.title}}</td>  
- <!-- move to order form                <td align="center"><input type = "number" id="id_{{book._id}}" name="ordered_qty" min = '0' value='0'}> </td> -->
+                <td align="center"><input type = "number" id="id_{{book._id}}" name="ordered_qty" min = '0' value='0'}> </td>
             </tr>
         {% endfor %}
         <tr> 

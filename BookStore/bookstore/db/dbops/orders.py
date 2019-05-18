@@ -18,8 +18,8 @@ def create_order(db,customer_id,book_list):
 	for b in book_list:
 		newLineId = 1 if (0 == order_lines.count_documents({})) else order_lines.count_documents({}) + 1
 		print ("create_order::new line id = ", newLineId)
-		ret = order_lines.insert_one({'_id': int(newLineId), 'order_id' : newOrderId, 'book_id' : b['book_id'], "quantity" : b['quantity']})
-		print("create_order::line insert_one ret = ",ret.inserted_id, " order_id = ", newOrderId, "book_id = ", b['book_id'], " quantity = ", b['quantity'])
+		ret = order_lines.insert_one({'_id': int(newLineId), 'order_id' : newOrderId, 'book_isbn' : b['book_isbn'], "quantity" : b['quantity']})
+		print("create_order::line insert_one ret = ",ret.inserted_id, " order_id = ", newOrderId, "book_isbn = ", b['book_isbn'], " quantity = ", b['quantity'])
 	return ({"order_id": newOrderId, "num_order_lines" : len(book_list)})	
 	# end transacton
 

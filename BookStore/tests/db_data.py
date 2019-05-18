@@ -122,7 +122,7 @@ order_rec1 = {
 order_line_rec1 = { 
     "_id" : 1 , 
     "order_id" : 1002, 
-    "book_id" : 765, 
+    "book_isbn" : 765, 
     "quantity" : 2 
 }
 
