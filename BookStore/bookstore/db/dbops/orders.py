@@ -7,13 +7,16 @@ def list_orders(db):
 	orders=db['DATABASE.ORDERS'] 
 	return (orders)
 
+def list_open_orders(db):
+	orders=db['DATABASE.ORDERS'] 	
+
 def create_order(db,customer_id,book_list):
 	orders=db["DATABASE.ORDERS"]
 	newOrderId = 1 if (0 == orders.count_documents({})) else orders.count_documents({})  + 1
 	print ("create_order::order id = ", newOrderId)
 	order_lines=db["DATABASE.ORDER_LINES"]	
 	# begin transaction
-	ret=orders.insert_one({'_id':newOrderId, 'customer_id' : customer_id})
+	ret=orders.insert_one({'_id':newOrderId, 'customer_id' : customer_id, 'status' : "open"})
 	print("create_order::order insert_one ret = ",ret.inserted_id)
 	for b in book_list:
 		newLineId = 1 if (0 == order_lines.count_documents({})) else order_lines.count_documents({}) + 1
@@ -49,7 +52,7 @@ def fulfill_order(db,order_id):
 	return fulfilled_books # have to create an aggregated JSON for each book
 
 
-# TODO: This function needs to be checked
+
 def del_order(db,order_id):
 	orders=db['DATABASE.ORDERS']
 	order_lines=db["DATABASE.ORDER_LINES"]	

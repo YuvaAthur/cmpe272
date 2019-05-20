@@ -52,27 +52,27 @@ sample_customers = [
 ]
 
 sample_orders = [
-    { "_id" : 1002, "customer_id" : 2 , "ship_address" : {"FirstName" : "Guava", "LastName" : "Seed", "street": "123 Fake Street", "city": "Faketon", "state": "MA", "zip": "12345"}  },
-    { "_id" : 1003, "customer_id" : 3 , "ship_address" : {"FirstName" : "Apple", "LastName" : "Seed", "street": "123 Fake Street", "city": "Faketon", "state": "MA", "zip": "12345"}  },
-    { "_id" : 1004, "customer_id" : 5 ,  "ship_address" : {"FirstName" : "Almond", "LastName" : "Seed", "street": "123 Fake Street", "city": "Faketon", "state": "MA", "zip": "12345"}  },
-    { "_id" : 1005, "customer_id" : 4 , "ship_address" : {"FirstName" : "Watermelon", "LastName" : "Seed", "street": "123 Fake Street", "city": "Faketon", "state": "MA", "zip": "12345"}  },
-    { "_id" : 1006, "customer_id" : 6 , "ship_address" : {"FirstName" : "Grape", "LastName" : "Seed", "street": "123 Fake Street", "city": "Faketon", "state": "MA", "zip": "12345"}  }
+    { "_id" : 1002, "customer_id" : 2 , "status" : "closed" , "ship_address" : {"FirstName" : "Guava", "LastName" : "Seed", "street": "123 Fake Street", "city": "Faketon", "state": "MA", "zip": "12345"}  },
+    { "_id" : 1003, "customer_id" : 3 , "status" : "closed" , "ship_address" : {"FirstName" : "Apple", "LastName" : "Seed", "street": "123 Fake Street", "city": "Faketon", "state": "MA", "zip": "12345"}  },
+    { "_id" : 1004, "customer_id" : 5 , "status" : "closed" ,  "ship_address" : {"FirstName" : "Almond", "LastName" : "Seed", "street": "123 Fake Street", "city": "Faketon", "state": "MA", "zip": "12345"}  },
+    { "_id" : 1005, "customer_id" : 4 , "status" : "closed" , "ship_address" : {"FirstName" : "Watermelon", "LastName" : "Seed", "street": "123 Fake Street", "city": "Faketon", "state": "MA", "zip": "12345"}  },
+    { "_id" : 1006, "customer_id" : 6 , "status" : "closed" , "ship_address" : {"FirstName" : "Grape", "LastName" : "Seed", "street": "123 Fake Street", "city": "Faketon", "state": "MA", "zip": "12345"}  }
 ]
 
 sample_orderlines = [
-    { "order_id" : 1002, "_id" : 1 , "book_id" : 765, "quantity" : 2 },
-    { "order_id" : 1002, "_id" : 2 , "book_id" : 755, "quantity" : 2 },
-    { "order_id" : 1002, "_id" : 3 , "book_id" : 665, "quantity" : 2 },
-    { "order_id" : 1003, "_id" : 4 , "book_id" : 565, "quantity" : 2  },
-    { "order_id" : 1003, "_id" : 5 , "book_id" : 465, "quantity" : 2  },
-    { "order_id" : 1004, "_id" : 6 ,  "book_id" : 365, "quantity" : 2  },
-    { "order_id" : 1005, "_id" : 7 , "book_id" : 165, "quantity" : 2  },
-    { "order_id" : 1005, "_id" : 8 , "book_id" : 265, "quantity" : 2  },
-    { "order_id" : 1005, "_id" : 9 , "book_id" : 65, "quantity" : 2  },
-    { "order_id" : 1005, "_id" : 10 , "book_id" : 55, "quantity" : 2  },
-    { "order_id" : 1005, "_id" : 11 , "book_id" : 76, "quantity" : 2  },
-    { "order_id" : 1006, "_id" : 12 , "book_id" : 6, "quantity" : 2  },
-    { "order_id" : 1006, "_id" : 13 , "book_id" : 5, "quantity" : 2  },
-    { "order_id" : 1006, "_id" : 14 , "book_id" : 7, "quantity" : 2  },
-    { "order_id" : 1006, "_id" : 15 , "book_id" : 8, "quantity" : 2  }
+    { "order_id" : 1002, "_id" : 1 , "book_isbn" : 765, "quantity" : 2 },
+    { "order_id" : 1002, "_id" : 2 , "book_isbn" : 755, "quantity" : 2 },
+    { "order_id" : 1002, "_id" : 3 , "book_isbn" : 665, "quantity" : 2 },
+    { "order_id" : 1003, "_id" : 4 , "book_isbn" : 565, "quantity" : 2  },
+    { "order_id" : 1003, "_id" : 5 , "book_isbn" : 465, "quantity" : 2  },
+    { "order_id" : 1004, "_id" : 6 ,  "book_isbn" : 365, "quantity" : 2  },
+    { "order_id" : 1005, "_id" : 7 , "book_isbn" : 165, "quantity" : 2  },
+    { "order_id" : 1005, "_id" : 8 , "book_isbn" : 265, "quantity" : 2  },
+    { "order_id" : 1005, "_id" : 9 , "book_isbn" : 65, "quantity" : 2  },
+    { "order_id" : 1005, "_id" : 10 , "book_isbn" : 55, "quantity" : 2  },
+    { "order_id" : 1005, "_id" : 11 , "book_isbn" : 76, "quantity" : 2  },
+    { "order_id" : 1006, "_id" : 12 , "book_isbn" : 6, "quantity" : 2  },
+    { "order_id" : 1006, "_id" : 13 , "book_isbn" : 5, "quantity" : 2  },
+    { "order_id" : 1006, "_id" : 14 , "book_isbn" : 7, "quantity" : 2  },
+    { "order_id" : 1006, "_id" : 15 , "book_isbn" : 8, "quantity" : 2  }
 ]

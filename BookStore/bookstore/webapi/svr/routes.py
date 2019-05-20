@@ -1,4 +1,4 @@
-from svr import app
+from svr import app, oidc, okta_client
 from flask import Flask, jsonify, abort, make_response, request, render_template, flash,redirect, url_for
 from flask import current_app, g
 from flask_login import login_user, logout_user, current_user, login_required, login_manager
@@ -12,15 +12,46 @@ from svr.models import AppDB
 # #for testing
 from db.data import sample_data
 
-
 # # for rendering user name
 user = {'username': 'Miguel'}
+
 
 # initializes to Mongo DB : For testing use Mongo Mock
 initdb = AppDB()    
 initdb.popsample()
 appdb = initdb.db
 
+
+# # for Okta
+# from flask_oidc import OpenIDConnect
+# from okta import UsersClient
+
+# # authorization usig Okta
+# app.config["OIDC_CLIENT_SECRETS"] = "client_secrets.json"
+# app.config["OIDC_COOKIE_SECURE"] = False
+# app.config["OIDC_CALLBACK_ROUTE"] = "/oidc/callback"
+# app.config["OIDC_SCOPES"] = ["openid", "email", "profile"]
+# app.config["SECRET_KEY"] = "hello123"
+# app.config["OIDC_ID_TOKEN_COOKIE_NAME"] = "oidc_token"
+# oidc = OpenIDConnect(app)
+# okta_client = UsersClient("https://dev-833144.okta.com", "00xJ6vTQkI8LzIQcPXf7Ehw75GrdAVDdqA2tvQFxFx")
+
+
+# @app.before_request
+# def before_request():
+#     if oidc.user_loggedin:
+#         # OpenID Token as 
+#         g.user = okta_client.get_user(oidc.user_getfield("sub"))
+#     else:
+#         g.user = None
+
+@app.before_request
+def before_request():
+    if oidc.user_loggedin:
+        # OpenID Token as 
+        g.user = okta_client.get_user(oidc.user_getfield("sub"))
+    else:
+        g.user = None
 
 @app.route('/')                 #decorator mapping root call
 @app.route('/index', methods=['GET','POST'])            #decorator mapping /index call
@@ -30,14 +61,27 @@ def index():
 
 #for testing purposes
 @app.route('/login', methods=['GET', 'POST'])
+@oidc.require_login
 def login():
-    form = LoginForm()
-    if form.validate_on_submit():
-        print("routes::login login form has data")
-        flash('Login requested for user {}, remember_me={}'.format(
-            form.username.data, form.remember_me.data))
-        return redirect(url_for('index'))
-    return render_template('login.html', title='Sign In', form=form)
+    """
+    Force the user to login, then redirect them to the get_books.
+    """
+    # form = LoginForm()
+    # if form.validate_on_submit():
+    #     print("routes::login login form has data")
+    #     flash('Login requested for user {}, remember_me={}'.format(
+    #         form.username.data, form.remember_me.data))
+    #     return redirect(url_for('get_books'))
+    # return render_template('login.html', title='Sign In', form=form)
+    return redirect(url_for(".index"))
+
+@app.route("/logout")
+def logout():
+    """
+    Log the user out of their account.
+    """
+    oidc.logout()
+    return redirect(url_for(".index"))
 
 # using example from http://flask.pocoo.org/docs/0.12/patterns/wtforms/
 @app.route('/register', methods=['GET', 'POST'])
@@ -174,33 +218,33 @@ def add_order():
 
 
 
-#Code written against MongoDB --> has to be adapted for JSON Collections!
-#TODO: Needs to be fixed for JSON
-#PUT orders/number: "fulfills the order" - i.e. adjusts the inventory to account for the books shipped for this order.
-@app.route('/api/v1.0/order_fulfill/<int:order_id>', methods=['PUT'])
-def fulfill_order(order_id):
-    orders = app.porders
-    books = app.pbooks
-    order_index = order_id - 1
+# #Code written against MongoDB --> has to be adapted for JSON Collections!
+# #TODO: Needs to be fixed for JSON
+# #PUT orders/number: "fulfills the order" - i.e. adjusts the inventory to account for the books shipped for this order.
+# @app.route('/api/v1.0/order_fulfill/<int:order_id>', methods=['PUT'])
+# def fulfill_order(order_id):
+#     orders = app.porders
+#     books = app.pbooks
+#     order_index = order_id - 1
 
-#    status = orders.getJSONObject(order_id).getJSONObject('status')
-#json.getJSONArray("content").getJSONObject(0).getString("article")
-#    status = orders[order_index].getString('status')
-    status = orders[order_index].get('status')
-    isbn = orders[order_index].get('isbn')
-    quantity_ordered = orders[order_index].get('quantity')
-    for book in books:
-        if(isbn == book.get('isbn')):
-            quantity_available = book.get('quantity')
-            bookid = book.get('id')
+# #    status = orders.getJSONObject(order_id).getJSONObject('status')
+# #json.getJSONArray("content").getJSONObject(0).getString("article")
+# #    status = orders[order_index].getString('status')
+#     status = orders[order_index].get('status')
+#     isbn = orders[order_index].get('isbn')
+#     quantity_ordered = orders[order_index].get('quantity')
+#     for book in books:
+#         if(isbn == book.get('isbn')):
+#             quantity_available = book.get('quantity')
+#             bookid = book.get('id')
 
-    # quantity_available = books.getJSONObject(isbn).getJSONObject('quantity')
-    if ("Created" == status):
-        orders[order_index].update({'status':"Fulfilled"})
-        # TODO: Have to update document
-        # books[bookid].update({'quantity':(quantity_available-quantity_ordered)})
+#     # quantity_available = books.getJSONObject(isbn).getJSONObject('quantity')
+#     if ("Created" == status):
+#         orders[order_index].update({'status':"Fulfilled"})
+#         # TODO: Have to update document
+#         # books[bookid].update({'quantity':(quantity_available-quantity_ordered)})
 
 
-    return jsonify({'orderid': order_id, 'fulfilled': quantity_ordered}), 201
+#     return jsonify({'orderid': order_id, 'fulfilled': quantity_ordered}), 201
 
 

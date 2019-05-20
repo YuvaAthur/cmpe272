@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %} <!-- inputs: form, user, books -->
+<h1> Administrator: {{ user.username }} : Filfill pending orders</h1>
+<form action="" method="post" novalidate>
+        {{form.hidden_tag()}}
+    <hr>
+        <table>
+            <tr>
+                <th>Book ISBN </th>
+                <th>Book Title</th>
+                <th>Quantity Required</th>
+            </tr>
+        {% for book in books_list %}
+            <tr> 
+                <td align="left">{{book.isbn}}</label></td>  
+                <td align="left">{{book.title}}</td>  
+                <td align="right">{{book.quantity}} </td>
+            </tr>
+        {% endfor %}
+        <tr> 
+            <td></td>
+            <td><h4>{{ form.submit() }}</h4></td>
+            <td></td>
+        </tr>
+    
+        </table>
+
+</form>
+{% endblock %}

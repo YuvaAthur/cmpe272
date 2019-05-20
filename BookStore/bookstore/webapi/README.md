@@ -312,12 +312,26 @@ class RegistrationForm(Form):
         * Checkbox list returns only checked values
         * Input field with validation returns full list. 
     * TODO: Validate only books checked are ordered 
+        * Idea complex to implement. HTML is tedious. 
 
 * Change in UI Flow
     * (1) Select book.  (2) Place order, (3) Review Order, (4) Create/Confirm order. 
     * (1) Select book
         * Use checkbox to determine which books are selected
     * (2) Place order
+
+## Admin flow : Fulfill order
+* Fulfill Order: 
+    * Admin should log in. 
+    * List of Pending Orders available. 
+    * Optional
+        * Select Orders to fulfill. 
+    * Confirm list. 
+    * Make changes in DB.
+
+
+
+
 
 * Check point:
 ```` Debug code in routes.oy get_books call. 
@@ -356,7 +370,7 @@ class RegistrationForm(Form):
 #             # # print ('routes::get_books Number of different Books ordered ', len(ordered_books))
 ''''
 
-
+# Adding 
 
 
 
@@ -365,6 +379,7 @@ class RegistrationForm(Form):
 
 ### Authentication
 * Ref: https://realpython.com/token-based-authentication-with-flask/ 
+
 
 
 ### Other explorations

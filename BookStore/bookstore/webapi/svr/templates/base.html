@@ -10,9 +10,13 @@
     <body>
         <div>Warriors Bookstore:  <!-- simplest way to show a nav bar -->
             <a href="{{ url_for('index') }}">Home</a>
+            {% if not g.user %}
             <a href="{{ url_for('login') }}">Login</a>
             <a href="{{ url_for('register') }}">Register</a>
-            <a href="{{ url_for('get_books') }}">Select Books</a>                   
+            {% else %}
+            <a href="{{ url_for('get_books') }}">Select Books</a>  
+            <a href="{{ url_for('logout') }}">Logout</a>  
+            {% endif %}                 
         </div>
 
         <!-- to display flash messages -->
