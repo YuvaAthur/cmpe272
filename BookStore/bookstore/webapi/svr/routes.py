@@ -36,14 +36,8 @@ appdb = initdb.db
 # oidc = OpenIDConnect(app)
 # okta_client = UsersClient("https://dev-833144.okta.com", "00xJ6vTQkI8LzIQcPXf7Ehw75GrdAVDdqA2tvQFxFx")
 
+from oauth2client.client import OAuth2Credentials
 
-# @app.before_request
-# def before_request():
-#     if oidc.user_loggedin:
-#         # OpenID Token as 
-#         g.user = okta_client.get_user(oidc.user_getfield("sub"))
-#     else:
-#         g.user = None
 
 @app.before_request
 def before_request():
@@ -73,14 +67,35 @@ def login():
     #         form.username.data, form.remember_me.data))
     #     return redirect(url_for('get_books'))
     # return render_template('login.html', title='Sign In', form=form)
+
+    info = oidc.user_getinfo(['preferred_username', 'email', 'sub'])
+    id_token = OAuth2Credentials.from_json(oidc.credentials_store[info.get('sub')]).token_response['id_token']
+    flash('routes::login : User Token ID {}'.format(id_token))
+
     return redirect(url_for(".index"))
 
 @app.route("/logout")
+# @oidc.require_login
 def logout():
     """
     Log the user out of their account.
     """
+    info = oidc.user_getinfo(['preferred_username', 'email', 'sub'])
+    id_token = OAuth2Credentials.from_json(oidc.credentials_store[info.get('sub')]).token_response['id_token']
+    # logout_request = base_url + logout_url + str(id_token) + logout_redirect_url
+    base_url = "http://localhost:5000/"
+    logout_url = url_for(".logout")
+    logout_redirect_url = url_for(".index")
+    # logout_request = str(id_token) 
+    logout_request = base_url + logout_url + str(id_token) + logout_redirect_url
+
+    flash('routes::logout : Congratulations, you have logged out!')
+
     oidc.logout()
+    # info = oidc.user_getinfo(['preferred_username', 'email', 'sub'])
+    # id_token = OAuth2Credentials.from_json(oidc.credentials_store[info.get('sub')]).token_response['id_token']
+    # flash('routes::logout : User Token ID {}'.format(id_token))
+
     return redirect(url_for(".index"))
 
 # using example from http://flask.pocoo.org/docs/0.12/patterns/wtforms/
