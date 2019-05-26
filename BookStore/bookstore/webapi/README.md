@@ -329,6 +329,42 @@ class RegistrationForm(Form):
     * Confirm list. 
     * Make changes in DB.
 
+## TODO : Continue and implement Fulfill order flow
+
+## Using GraphQL to query MongoDB Schema
+* Start with GraphQL code
+```pip install flask-graphql```
+""" routes.py
+from flask_graphql import GraphQLView
+
+app.add_url_rule(
+    '/graphql', 
+    view_func=GraphQLView.as_view(
+        'graphql', 
+        schema=schema, 
+        graphiql=True
+    )
+)
+""" 
+* Needs Schema: Get from graphene mongo
+```pip install graphene-mongo```
+* Ref: https://bcb.github.io/python/graphql-flask 
+* http://docs.graphene-python.org/en/latest/quickstart/#creating-a-basic-schema
+    * Simple example works
+    * Postman test
+        * POST
+            * ```http://127.0.0.1:5000/graphql```
+            * raw body = ```query={hello}```
+        * Response
+            """
+            {
+               "data": {
+                    "hello": "Hello stranger"
+                }
+            }
+            """
+* Get MongoDB Schema
+    * Ref: https://jeffersonheard.github.io/python/graphql/2018/12/08/graphene-python.html 
 
 
 

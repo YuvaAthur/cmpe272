@@ -17,5 +17,3 @@ class AppDB():
         ret3 = pop_inventory(self.db, sample_data.sample_inventory)
         ret4 = pop_orders(self.db,sample_data.sample_orders,sample_data.sample_orderlines)
 
-        
-

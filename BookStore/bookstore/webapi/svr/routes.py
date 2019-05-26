@@ -2,6 +2,7 @@ from svr import app, oidc, okta_client
 from flask import Flask, jsonify, abort, make_response, request, render_template, flash,redirect, url_for
 from flask import current_app, g
 from flask_login import login_user, logout_user, current_user, login_required, login_manager
+from flask import session
 from werkzeug.urls import url_parse
 from svr.forms import LoginForm, RegistrationForm, BookOrderForm, QuantityOrderForm , ConfirmOrderForm
 
@@ -12,6 +13,10 @@ from svr.models import AppDB
 # #for testing
 from db.data import sample_data
 
+# Schema for GraphQL
+
+
+
 # # for rendering user name
 user = {'username': 'Miguel'}
 
@@ -20,6 +25,24 @@ user = {'username': 'Miguel'}
 initdb = AppDB()    
 initdb.popsample()
 appdb = initdb.db
+
+
+# # Minima GraphQL : https://bcb.github.io/python/graphql-flask 
+# # Bug fix at : http://docs.graphene-python.org/en/latest/quickstart/#creating-a-basic-schema
+# from graphene import ObjectType, String, Schema
+# from flask_graphql import GraphQLView
+# class Query(ObjectType):
+#     hello = String(argument=String(default_value="stranger"))
+#     def resolve_hello(self, info, argument):
+#         return 'Hello ' + argument
+
+# view_func = GraphQLView.as_view("graphql", schema=Schema(query=Query),graphiql=True)
+
+# app.add_url_rule('/graphql', view_func=view_func)
+
+# # Optional, for adding batch query support (used in Apollo-Client)
+# # app.add_url_rule('/graphql/batch', view_func=GraphQLView.as_view('graphql', schema=schema, batch=True))
+
 
 
 # # for Okta
@@ -75,7 +98,7 @@ def login():
     return redirect(url_for(".index"))
 
 @app.route("/logout")
-# @oidc.require_login
+@oidc.require_login
 def logout():
     """
     Log the user out of their account.
@@ -84,19 +107,20 @@ def logout():
     id_token = OAuth2Credentials.from_json(oidc.credentials_store[info.get('sub')]).token_response['id_token']
     # logout_request = base_url + logout_url + str(id_token) + logout_redirect_url
     base_url = "http://localhost:5000/"
-    logout_url = url_for(".logout")
-    logout_redirect_url = url_for(".index")
+    logout_url =  url_for(".logout")
+    logout_redirect_url =  url_for(".index")
     # logout_request = str(id_token) 
     logout_request = base_url + logout_url + str(id_token) + logout_redirect_url
 
     flash('routes::logout : Congratulations, you have logged out!')
 
     oidc.logout()
+    session.clear()
     # info = oidc.user_getinfo(['preferred_username', 'email', 'sub'])
     # id_token = OAuth2Credentials.from_json(oidc.credentials_store[info.get('sub')]).token_response['id_token']
     # flash('routes::logout : User Token ID {}'.format(id_token))
 
-    return redirect(url_for(".index"))
+    return redirect(logout_request) #     redirect(url_for(".index"))
 
 # using example from http://flask.pocoo.org/docs/0.12/patterns/wtforms/
 @app.route('/register', methods=['GET', 'POST'])

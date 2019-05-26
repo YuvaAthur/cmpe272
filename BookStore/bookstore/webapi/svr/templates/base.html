@@ -1,6 +1,7 @@
 <!-- Jingo2 style : https://realpython.com/primer-on-jinja-templating/ -->
 <html>
     <head>
+      <!-- <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"> -->
       {% if title %}
       <title>{{ title }} - CME272 Warriors</title>
       {% else %}
@@ -8,14 +9,14 @@
       {% endif %}
     </head>
     <body>
-        <div>Warriors Bookstore:  <!-- simplest way to show a nav bar -->
-            <a href="{{ url_for('index') }}">Home</a>
+        <body background="{{url_for('static', filename='gsw.jpeg')}}">    
+        <div> <h3> <font color="FF0000">Warriors Bookstore:</font> </h3>  <!-- simplest way to show a nav bar -->
+            <a href="{{ url_for('index') }}" > <font color="FF0000">Home</font> </a>
             {% if not g.user %}
-                <a href="{{ url_for('login') }}">Login</a>
-                <a href="{{ url_for('register') }}">Register</a>
+                <a href="{{ url_for('login') }}"> <font color="FF0000"> Login / Register </font></a>
             {% else %}
-                <a href="{{ url_for('get_books') }}">Select Books</a>  
-                <a href="{{ url_for('logout') }}">Logout</a>  
+                <a href="{{ url_for('get_books') }}"> <font color="FF0000"> Select Books</font></a>  
+                <a href="{{ url_for('logout') }}"> <font color="FF0000"> Logout </font></a>  
             {% endif %}                 
         </div>
 
