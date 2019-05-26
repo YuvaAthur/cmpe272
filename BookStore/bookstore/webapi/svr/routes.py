@@ -44,23 +44,7 @@ appdb = initdb.db
 # # app.add_url_rule('/graphql/batch', view_func=GraphQLView.as_view('graphql', schema=schema, batch=True))
 
 
-
-# # for Okta
-# from flask_oidc import OpenIDConnect
-# from okta import UsersClient
-
-# # authorization usig Okta
-# app.config["OIDC_CLIENT_SECRETS"] = "client_secrets.json"
-# app.config["OIDC_COOKIE_SECURE"] = False
-# app.config["OIDC_CALLBACK_ROUTE"] = "/oidc/callback"
-# app.config["OIDC_SCOPES"] = ["openid", "email", "profile"]
-# app.config["SECRET_KEY"] = "hello123"
-# app.config["OIDC_ID_TOKEN_COOKIE_NAME"] = "oidc_token"
-# oidc = OpenIDConnect(app)
-# okta_client = UsersClient("https://dev-833144.okta.com", "00xJ6vTQkI8LzIQcPXf7Ehw75GrdAVDdqA2tvQFxFx")
-
 from oauth2client.client import OAuth2Credentials
-
 
 @app.before_request
 def before_request():
@@ -93,7 +77,12 @@ def login():
 
     info = oidc.user_getinfo(['preferred_username', 'email', 'sub'])
     id_token = OAuth2Credentials.from_json(oidc.credentials_store[info.get('sub')]).token_response['id_token']
-    flash('routes::login : User Token ID {}'.format(id_token))
+    # flash('routes::login : User Token ID {}'.format(id_token))
+
+    # Ref: https://blog.paradoxis.nl/defeating-flasks-session-management-65706ba9d3ce
+    if 'logged_in' not in session:
+        session['logged_in'] = False
+
 
     return redirect(url_for(".index"))
 
@@ -112,8 +101,7 @@ def logout():
     # logout_request = str(id_token) 
     logout_request = base_url + logout_url + str(id_token) + logout_redirect_url
 
-    flash('routes::logout : Congratulations, you have logged out!')
-
+    # flash('routes::logout : Congratulations, you have logged out!')
     oidc.logout()
     session.clear()
     # info = oidc.user_getinfo(['preferred_username', 'email', 'sub'])
@@ -122,20 +110,21 @@ def logout():
 
     return redirect(logout_request) #     redirect(url_for(".index"))
 
+# Not needed: Okta takes care of Sign up
 # using example from http://flask.pocoo.org/docs/0.12/patterns/wtforms/
-@app.route('/register', methods=['GET', 'POST'])
-def register():
-    # if current_user.is_authenticated:
-    #     return redirect(url_for('index'))
-    form = RegistrationForm()
-    if form.validate_on_submit():
-        user = User(username=form.username.data, email=form.email.data)
-        user.set_password(form.password.data)
-        # db.session.add(user)
-        # db.session.commit()
-        flash('Congratulations, you are now a registered user!')
-        return redirect(url_for('login'))
-    return render_template('register.html', title='Register', form=form)
+# @app.route('/register', methods=['GET', 'POST'])
+# def register():
+#     # if current_user.is_authenticated:
+#     #     return redirect(url_for('index'))
+#     form = RegistrationForm()
+#     if form.validate_on_submit():
+#         user = User(username=form.username.data, email=form.email.data)
+#         user.set_password(form.password.data)
+#         # db.session.add(user)
+#         # db.session.commit()
+#         flash('Congratulations, you are now a registered user!')
+#         return redirect(url_for('login'))
+#     return render_template('register.html', title='Register', form=form)
 
 ## API List
 
@@ -152,7 +141,7 @@ def get_books():
         # return jsonify({'books': books})  # for debugging - raw dump to UI
     if form.validate_on_submit():
         checked_books = request.form.getlist("ordered_books") # value of checkbox field
-        flash('Number of different Books checked {} '.format(len(checked_books)))
+        # flash('Number of different Books checked {} '.format(len(checked_books)))
         app.ordered_books=[]
         for isbn in checked_books:
             book = get_book(isbn)
@@ -171,7 +160,7 @@ def get_order():
         i = 0
         for qty in ordered_qty:
             books_list[i]['quantity'] = int(qty)
-            flash ('routes::get_order book ordered {} quantity {}'.format(books_list[i]['title'],books_list[i]['quantity']))
+            # flash ('routes::get_order book ordered {} quantity {}'.format(books_list[i]['title'],books_list[i]['quantity']))
             i += 1
         i = 0
         length = len(books_list)
@@ -181,7 +170,7 @@ def get_order():
                 length -= 1
                 continue
             i += 1
-        flash ('routes::get_order book final order {}'.format(len(books_list)))        
+        # flash ('routes::get_order book final order {}'.format(len(books_list)))        
         # return render_template('index.html', title='Home', user=user)
         return redirect(url_for('confirm_order'))
     return render_template('order.html', title='Choose quantity for selected books', books=books_list,user=user, form=form)
@@ -191,10 +180,10 @@ def get_order():
 def confirm_order():
     form = ConfirmOrderForm()
     books_list = app.ordered_books
-    for book in books_list:
-        flash ('routes::confirm_order book ordered {} quantity {}'.format(book['title'],book['quantity']))
     ordered_qty = [] 
     if form.validate_on_submit():
+        for book in books_list:
+            flash ('Ordered: {} Quantity: {}'.format(book['title'],book['quantity']))
         # return render_template('index.html', title='Home', user=user) # for debugging flow
         return redirect(url_for('get_books'))
     return render_template('confirm.html', title='Confirm quantity for selected books', books_list=books_list,user=user, form=form)

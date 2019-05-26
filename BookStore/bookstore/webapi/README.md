@@ -367,6 +367,22 @@ app.add_url_rule(
     * Ref: https://jeffersonheard.github.io/python/graphql/2018/12/08/graphene-python.html 
 
 
+## Working with Session Cookies : SSO Logout problem
+* Issues:
+    * Log-out of user is not logging user out.
+    * Known Issue: https://github.com/puiterwijk/flask-oidc/issues/5#issuecomment-86187023 
+    * Ref: https://flask-oidc.readthedocs.io/en/latest/ 
+* Changes attempted 
+    * On Okta server side: Reduced token validity time. 
+        * Due to refresh on server side, this does not seem to work
+    * On client side : Use Incognito Chrome mode 
+        * Close browser to release cookies. 
+* Interesting explorations:
+    * Ref: https://blog.paradoxis.nl/defeating-flasks-session-management-65706ba9d3ce
+    * Shows how Flask Session is managed
+    * Offers ways to check for Flask vulnerabilities due to simple Secrets 
+
+
 
 
 * Check point:

@@ -1,15 +1,15 @@
 {% extends "base.html" %}
 
 {% block content %} <!-- inputs: form, user, books -->
-<h1> Administrator: {{ user.username }} : Filfill pending orders</h1>
+<h1> <font color="FFFF00"></font>Administrator: {{ user.username }} : Filfill pending orders</h1>
 <form action="" method="post" novalidate>
         {{form.hidden_tag()}}
     <hr>
         <table>
             <tr>
-                <th>Book ISBN </th>
-                <th>Book Title</th>
-                <th>Quantity Required</th>
+                <th><font color="FFFF00">Book ISBN</font> </th>
+                <th><font color="FFFF00">Book Title</font></th>
+                <th><font color="FFFF00">Quantity Required</font></th>
             </tr>
         {% for book in books_list %}
             <tr> 
