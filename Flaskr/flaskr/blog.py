@@ -16,7 +16,9 @@ def index():
     posts = db.execute(
         'SELECT p.id, title, body, created, author_id, username'
         ' FROM post p JOIN user u ON p.author_id = u.id'
-        ' ORDER BY created DESC'
+        # ' WHERE u.id = ?'                           # to restrict to one user's posts
+        ' ORDER BY created DESC',
+        #(g.user['id'],)                              # to restrict to one user's posts
     ).fetchall()
     return render_template('blog/index.html', posts=posts)
 

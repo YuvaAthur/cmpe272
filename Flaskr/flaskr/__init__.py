@@ -27,7 +27,7 @@ def create_app(test_config=None):
         pass
 
     @app.route('/hello')
-    @app.route('/')   # - For debugging purposes
+    #@app.route('/')   # - For debugging purposes
     def hello():
         return 'Hello, World!'
 

@@ -53,9 +53,11 @@ def register():
         elif not password:
             error = 'Password is required.'
         elif db.execute(
-            'SELECT id FROM user WHERE username = ?', (username,)
-        ).fetchone() is not None:
+            'SELECT id FROM user WHERE username = ?', (username,) # DB Library escapes parameters! Not vulnerable to SQL injection attack
+        ).fetchone() is not None:                   
             error = 'User {0} is already registered.'.format(username)
+            flash(error)
+            return redirect(url_for('auth.login')) # adding redirect in case registered
 
         if error is None:
             # the name is available, store it in the database and go to
