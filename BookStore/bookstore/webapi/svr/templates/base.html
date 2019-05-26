@@ -33,7 +33,7 @@
         {% endwith %}
         <!-- iterate through children blocks -->
         {% if not g.user %}
-        <h1> Welcome Guest!</h1>
+        <h1> <font color="FFFF00">  Welcome Guest! </font> </h1>
         {% else %}
         <h1> <font color="FFFF00"> Hi, {{ g.user.profile.firstName }}!</font></h1>
         {% endif %} 
