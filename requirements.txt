@@ -15,7 +15,7 @@ pprint==0.1
 pymongo==3.8.0   
 pytest==4.4.1 
 sentinels==1.0.0   
-setuptools==40.8.0  
+setuptools==65.5.1  
 six==1.10.0  
 tornado==5.1.1 
 validators==0.12.6  
